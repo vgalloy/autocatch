@@ -25,7 +25,7 @@ import java.util.concurrent.Callable;
 public class AutoCatch {
 
     /**
-     * Constructor
+     * Constructor.
      * Private to avoid instantiation
      */
     private AutoCatch() {
@@ -39,7 +39,7 @@ public class AutoCatch {
      * @param <T>      the return type of the callable
      * @return the value provided by the callable
      */
-    public static <T> T propagate(final Callable<T> callable) {
+    public static <T> T autoCatch(final Callable<T> callable) {
         try {
             return callable.call();
         } catch (final RuntimeException e) {
@@ -50,23 +50,13 @@ public class AutoCatch {
     }
 
     /**
-     * Execute the provided callable and ignore any exception thrown.
+     * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param callable the callable
-     * @param <T>      the return type of the callable
-     * @return the value provided by the callable
+     * @param runnableWithException the runnable
      */
-    public static <T> T ignore(final Callable<T> callable) {
+    public static void autoCatch(final RunnableWithException runnableWithException) {
         try {
-            return callable.call();
-        } catch (final Exception e) {
-            return null;
-        }
-    }
-
-    public static void propagate(final RunnableWithError runnableWithError) {
-        try {
-            runnableWithError.run();
+            runnableWithException.run();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -75,19 +65,77 @@ public class AutoCatch {
     }
 
     /**
-     * Execute the provided runnable and ignore any exception thrown.
+     * Execute the provided supplier and wrap Exception (if any) in runtime.
      *
-     * @param runnableWithError the runnable
+     * @param intSupplier the int supplier
      */
-    public static void ignore(final RunnableWithError runnableWithError) {
+    public static int autoCatch(final IntSupplierWithException intSupplier) {
         try {
-            runnableWithError.run();
+            return intSupplier.getAsInt();
+        } catch (final RuntimeException e) {
+            throw e;
         } catch (final Exception e) {
-
+            throw new RuntimeException(e);
         }
     }
 
-    public interface RunnableWithError {
-        void run() throws Exception;
+    /**
+     * Execute the provided callable and wrap Exception (if any) in runtime.
+     *
+     * @param doubleSupplier the double supplier
+     */
+    public static double autoCatch(final DoubleSupplierWithException doubleSupplier) {
+        try {
+            return doubleSupplier.getAsDouble();
+        } catch (final RuntimeException e) {
+            throw e;
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Execute the provided callable and wrap Exception (if any) in runtime.
+     *
+     * @param booleanSupplier the double supplier
+     */
+    public static boolean autoCatch(final BooleanSupplierWithException booleanSupplier) {
+        try {
+            return booleanSupplier.getAsBoolean();
+        } catch (final RuntimeException e) {
+            throw e;
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Execute the provided callable and wrap Exception (if any) in runtime.
+     *
+     * @param charSupplier the char supplier
+     */
+    public static char autoCatch(final CharSupplierWithException charSupplier) {
+        try {
+            return charSupplier.getAsChar();
+        } catch (final RuntimeException e) {
+            throw e;
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Execute the provided callable and wrap Exception (if any) in runtime.
+     *
+     * @param byteSupplier the char supplier
+     */
+    public static byte autoCatch(final ByteSupplierWithException byteSupplier) {
+        try {
+            return byteSupplier.getAsByte();
+        } catch (final RuntimeException e) {
+            throw e;
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

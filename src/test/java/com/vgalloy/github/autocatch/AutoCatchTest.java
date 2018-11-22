@@ -36,7 +36,7 @@ public class AutoCatchTest {
         final Callable<Integer> callable = () -> value;
 
         // WHEN
-        final Integer result = AutoCatch.propagate(callable);
+        final Integer result = AutoCatch.autoCatch(callable);
 
         // THEN
         Assert.assertEquals(value, result);
@@ -51,7 +51,7 @@ public class AutoCatchTest {
         };
 
         // WHEN / THEN
-        Assertions.assertThatThrownBy(() -> AutoCatch.propagate(callable))
+        Assertions.assertThatThrownBy(() -> AutoCatch.autoCatch(callable))
             .hasMessage(message)
             .isInstanceOf(IllegalStateException.class);
     }
@@ -65,9 +65,37 @@ public class AutoCatchTest {
         };
 
         // WHEN / THEN
-        Assertions.assertThatThrownBy(() -> AutoCatch.propagate(callable))
+        Assertions.assertThatThrownBy(() -> AutoCatch.autoCatch(callable))
             .hasMessage("java.io.IOException: FAKE")
             .isInstanceOf(RuntimeException.class)
             .hasCauseExactlyInstanceOf(IOException.class);
+    }
+
+    @Test
+    public void intSupplier() {
+        // GIVEN
+        final String message = "FAKE";
+        final IntSupplierWithException callable = () -> {
+            throw new IOException(message);
+        };
+
+        // WHEN / THEN
+        Assertions.assertThatThrownBy(() -> AutoCatch.autoCatch(callable))
+            .hasMessage("java.io.IOException: FAKE")
+            .isInstanceOf(RuntimeException.class)
+            .hasCauseExactlyInstanceOf(IOException.class);
+    }
+
+    @Test
+    public void correctByteSupplier() {
+        // GIVEN
+        final byte input = 2;
+        final ByteSupplierWithException callable = () -> input;
+
+        // WHEN
+        final byte result = AutoCatch.autoCatch(callable);
+
+        // THEN
+        Assertions.assertThat(result).isEqualTo(input);
     }
 }

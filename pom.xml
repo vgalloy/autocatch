@@ -8,6 +8,21 @@
     <artifactId>auto-catch</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/vgalloy/autocatch.git</connection>
+        <developerConnection>scm:git:git@github.com:vgalloy/autocatch.git</developerConnection>
+        <url>http://github.com/vgalloy/autocatch/tree/master</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <!-- Project -->
         <java.version>1.8</java.version>
@@ -60,21 +75,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin.version}</version>
-               <executions>
-                   <execution>
-                       <id>enforce-maven</id>
-                       <goals>
-                           <goal>enforce</goal>
-                       </goals>
-                       <configuration>
-                           <rules>
-                               <requireMavenVersion>
-                                   <version>${maven.version}</version>
-                               </requireMavenVersion>
-                           </rules>
-                       </configuration>
-                   </execution>
-               </executions>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>${maven.version}</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
