@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vgalloy.github.autocatch;
+package io.github.vgalloy.autocatch;
 
 /**
  * Created by Vincent Galloy on 22/11/18.
  *
  * @author Vincent Galloy
  */
-public interface BooleanSupplierWithException {
+public interface CharSupplierWithException {
 
     /**
      * Gets a result.
@@ -28,5 +28,5 @@ public interface BooleanSupplierWithException {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    boolean getAsBoolean() throws Exception;
+    char getAsChar() throws Exception;
 }

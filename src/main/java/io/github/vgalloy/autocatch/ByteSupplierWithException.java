@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vgalloy.github.autocatch;
+package io.github.vgalloy.autocatch;
 
 /**
  * Created by Vincent Galloy on 22/11/18.
  *
  * @author Vincent Galloy
  */
-public interface RunnableWithException {
+public interface ByteSupplierWithException {
 
     /**
      * Gets a result.
      *
+     * @return a result
      * @throws Exception the exception to wrap
      */
-    void run() throws Exception;
+    byte getAsByte() throws Exception;
 }

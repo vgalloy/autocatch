@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.vgalloy.github.autocatch;
+package io.github.vgalloy.autocatch;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
