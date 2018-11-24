@@ -68,6 +68,7 @@ public class AutoCatch {
      * Execute the provided supplier and wrap Exception (if any) in runtime.
      *
      * @param intSupplier the int supplier
+     * @return the primitive int provided by the supplier
      */
     public static int autoCatch(final IntSupplierWithException intSupplier) {
         try {
@@ -83,6 +84,7 @@ public class AutoCatch {
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
      * @param doubleSupplier the double supplier
+     * @return the primitive double provided by the supplier
      */
     public static double autoCatch(final DoubleSupplierWithException doubleSupplier) {
         try {
@@ -97,7 +99,8 @@ public class AutoCatch {
     /**
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param booleanSupplier the double supplier
+     * @param booleanSupplier the boolean supplier
+     * @return the primitive boolean provided by the supplier
      */
     public static boolean autoCatch(final BooleanSupplierWithException booleanSupplier) {
         try {
@@ -113,6 +116,7 @@ public class AutoCatch {
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
      * @param charSupplier the char supplier
+     * @return the primitive char provided by the supplier
      */
     public static char autoCatch(final CharSupplierWithException charSupplier) {
         try {
@@ -127,7 +131,8 @@ public class AutoCatch {
     /**
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param byteSupplier the char supplier
+     * @param byteSupplier the byte supplier
+     * @return the primitive byte provided by the supplier
      */
     public static byte autoCatch(final ByteSupplierWithException byteSupplier) {
         try {
