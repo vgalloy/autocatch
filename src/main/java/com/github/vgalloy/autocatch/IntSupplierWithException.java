@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.vgalloy.autocatch;
+package com.github.vgalloy.autocatch;
 
 /**
  * Created by Vincent Galloy on 22/11/18.
  *
  * @author Vincent Galloy
  */
-public interface DoubleSupplierWithException {
+public interface IntSupplierWithException {
 
     /**
      * Gets a result.
@@ -28,5 +28,5 @@ public interface DoubleSupplierWithException {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    double getAsDouble() throws Exception;
+    int getAsInt() throws Exception;
 }

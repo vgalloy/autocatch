@@ -4,22 +4,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.vgalloy</groupId>
+    <groupId>com.github.vgalloy</groupId>
     <artifactId>auto-catch</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <name>Auto catch</name>
+    <description>Simple Java error wrapper</description>
+    <url>https://github.com:vgalloy/autocatch.git</url>
 
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Vincent Galloy</name>
+            <email>galloy.v@gmail.com</email>
+            <organization>com.github.vgalloy</organization>
+            <organizationUrl>https://github.com:vgalloy/autocatch.git</organizationUrl>
+        </developer>
+    </developers>
+
     <scm>
-        <connection>git://github.com/vgalloy/autocatch.git</connection>
-        <developerConnection>git@github.com:vgalloy/autocatch.git</developerConnection>
-        <url>http://github.com/vgalloy/autocatch/tree/master</url>
+        <connection>scm:git:git://github.com/vgalloy/autocatch.git</connection>
+        <developerConnection>scm:git:git@github.com:vgalloy/autocatch.git</developerConnection>
+        <url>https://github.com/vgalloy/autocatch/tree/master</url>
     </scm>
 
     <properties>
