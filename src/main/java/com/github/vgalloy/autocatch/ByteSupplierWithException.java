@@ -15,11 +15,7 @@
  */
 package com.github.vgalloy.autocatch;
 
-/**
- * Created by Vincent Galloy on 22/11/18.
- *
- * @author Vincent Galloy
- */
+@FunctionalInterface
 public interface ByteSupplierWithException {
 
     /**

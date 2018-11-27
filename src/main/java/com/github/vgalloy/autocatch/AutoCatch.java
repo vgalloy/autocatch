@@ -17,12 +17,7 @@ package com.github.vgalloy.autocatch;
 
 import java.util.concurrent.Callable;
 
-/**
- * Created by Vincent Galloy on 20/11/18.
- *
- * @author Vincent Galloy
- */
-public class AutoCatch {
+public final class AutoCatch {
 
     /**
      * Constructor.
