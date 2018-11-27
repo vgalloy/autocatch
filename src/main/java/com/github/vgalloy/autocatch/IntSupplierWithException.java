@@ -15,8 +15,15 @@
  */
 package com.github.vgalloy.autocatch;
 
+import java.util.function.IntSupplier;
+
 @FunctionalInterface
-public interface IntSupplierWithException {
+public interface IntSupplierWithException extends IntSupplier {
+
+    @Override
+    default int getAsInt() {
+        return AutoCatch.autoCatch(this);
+    }
 
     /**
      * Gets a result.
@@ -24,5 +31,5 @@ public interface IntSupplierWithException {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    int getAsInt() throws Exception;
+    int getAsIntWithException() throws Exception;
 }

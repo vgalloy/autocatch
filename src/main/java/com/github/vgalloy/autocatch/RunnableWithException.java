@@ -16,12 +16,17 @@
 package com.github.vgalloy.autocatch;
 
 @FunctionalInterface
-public interface RunnableWithException {
+public interface RunnableWithException extends Runnable {
+
+    @Override
+    default void run() {
+        AutoCatch.autoCatch(this);
+    }
 
     /**
      * Gets a result.
      *
      * @throws Exception the exception to wrap
      */
-    void run() throws Exception;
+    void runWithException() throws Exception;
 }

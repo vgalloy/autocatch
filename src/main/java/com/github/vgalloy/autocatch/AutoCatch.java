@@ -51,7 +51,7 @@ public final class AutoCatch {
      */
     public static void autoCatch(final RunnableWithException runnableWithException) {
         try {
-            runnableWithException.run();
+            runnableWithException.runWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -67,7 +67,7 @@ public final class AutoCatch {
      */
     public static int autoCatch(final IntSupplierWithException intSupplier) {
         try {
-            return intSupplier.getAsInt();
+            return intSupplier.getAsIntWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -83,7 +83,7 @@ public final class AutoCatch {
      */
     public static double autoCatch(final DoubleSupplierWithException doubleSupplier) {
         try {
-            return doubleSupplier.getAsDouble();
+            return doubleSupplier.getAsDoubleWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -99,7 +99,7 @@ public final class AutoCatch {
      */
     public static boolean autoCatch(final BooleanSupplierWithException booleanSupplier) {
         try {
-            return booleanSupplier.getAsBoolean();
+            return booleanSupplier.getAsBooleanWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -115,7 +115,7 @@ public final class AutoCatch {
      */
     public static char autoCatch(final CharSupplierWithException charSupplier) {
         try {
-            return charSupplier.getAsChar();
+            return charSupplier.getAsCharWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -131,7 +131,7 @@ public final class AutoCatch {
      */
     public static byte autoCatch(final ByteSupplierWithException byteSupplier) {
         try {
-            return byteSupplier.getAsByte();
+            return byteSupplier.getAsByteWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {

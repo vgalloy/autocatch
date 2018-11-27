@@ -24,5 +24,5 @@ public interface CharSupplierWithException {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    char getAsChar() throws Exception;
+    char getAsCharWithException() throws Exception;
 }

@@ -24,5 +24,5 @@ public interface ByteSupplierWithException {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    byte getAsByte() throws Exception;
+    byte getAsByteWithException() throws Exception;
 }

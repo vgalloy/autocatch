@@ -15,8 +15,15 @@
  */
 package com.github.vgalloy.autocatch;
 
+import java.util.function.DoubleSupplier;
+
 @FunctionalInterface
-public interface DoubleSupplierWithException {
+public interface DoubleSupplierWithException extends DoubleSupplier {
+
+    @Override
+    default double getAsDouble() {
+        return AutoCatch.autoCatch(this);
+    }
 
     /**
      * Gets a result.
@@ -24,5 +31,5 @@ public interface DoubleSupplierWithException {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    double getAsDouble() throws Exception;
+    double getAsDoubleWithException() throws Exception;
 }
