@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.vgalloy.autocatch;
+package com.github.vgalloy.autocatch.function;
 
 import java.util.function.DoubleSupplier;
+
+import com.github.vgalloy.autocatch.AutoCatch;
 
 @FunctionalInterface
 public interface DoubleSupplierWithException extends DoubleSupplier {

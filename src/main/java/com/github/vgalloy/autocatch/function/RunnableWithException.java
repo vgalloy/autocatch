@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.vgalloy.autocatch;
+package com.github.vgalloy.autocatch.function;
 
-import java.util.function.IntSupplier;
+import com.github.vgalloy.autocatch.AutoCatch;
 
 @FunctionalInterface
-public interface IntSupplierWithException extends IntSupplier {
+public interface RunnableWithException extends Runnable {
 
     @Override
-    default int getAsInt() {
-        return AutoCatch.autoCatch(this);
+    default void run() {
+        AutoCatch.autoCatch(this);
     }
 
     /**
      * Gets a result.
      *
-     * @return a result
      * @throws Exception the exception to wrap
      */
-    int getAsIntWithException() throws Exception;
+    void runWithException() throws Exception;
 }

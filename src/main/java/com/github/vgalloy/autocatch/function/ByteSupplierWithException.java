@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.vgalloy.autocatch;
+package com.github.vgalloy.autocatch.function;
 
 @FunctionalInterface
 public interface ByteSupplierWithException {

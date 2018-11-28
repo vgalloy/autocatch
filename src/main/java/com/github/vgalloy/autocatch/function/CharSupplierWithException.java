@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.vgalloy.autocatch;
+package com.github.vgalloy.autocatch.function;
 
 @FunctionalInterface
-public interface RunnableWithException extends Runnable {
-
-    @Override
-    default void run() {
-        AutoCatch.autoCatch(this);
-    }
+public interface CharSupplierWithException {
 
     /**
      * Gets a result.
      *
+     * @return a result
      * @throws Exception the exception to wrap
      */
-    void runWithException() throws Exception;
+    char getAsCharWithException() throws Exception;
 }

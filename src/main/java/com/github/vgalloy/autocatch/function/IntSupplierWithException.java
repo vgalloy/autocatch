@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.vgalloy.autocatch;
+package com.github.vgalloy.autocatch.function;
 
-import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
+
+import com.github.vgalloy.autocatch.AutoCatch;
 
 @FunctionalInterface
-public interface BooleanSupplierWithException extends BooleanSupplier {
+public interface IntSupplierWithException extends IntSupplier {
 
     @Override
-    default boolean getAsBoolean() {
+    default int getAsInt() {
         return AutoCatch.autoCatch(this);
     }
 
@@ -31,5 +33,5 @@ public interface BooleanSupplierWithException extends BooleanSupplier {
      * @return a result
      * @throws Exception the exception to wrap
      */
-    boolean getAsBooleanWithException() throws Exception;
+    int getAsIntWithException() throws Exception;
 }

@@ -18,6 +18,8 @@ package com.github.vgalloy.autocatch;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
+import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
+import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;

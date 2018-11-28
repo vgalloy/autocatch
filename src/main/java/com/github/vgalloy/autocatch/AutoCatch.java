@@ -17,6 +17,13 @@ package com.github.vgalloy.autocatch;
 
 import java.util.concurrent.Callable;
 
+import com.github.vgalloy.autocatch.function.BooleanSupplierWithException;
+import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
+import com.github.vgalloy.autocatch.function.CharSupplierWithException;
+import com.github.vgalloy.autocatch.function.DoubleSupplierWithException;
+import com.github.vgalloy.autocatch.function.IntSupplierWithException;
+import com.github.vgalloy.autocatch.function.RunnableWithException;
+
 public final class AutoCatch {
 
     /**
@@ -62,12 +69,12 @@ public final class AutoCatch {
     /**
      * Execute the provided supplier and wrap Exception (if any) in runtime.
      *
-     * @param intSupplier the int supplier
+     * @param intSupplierWithException the int supplier
      * @return the primitive int provided by the supplier
      */
-    public static int autoCatch(final IntSupplierWithException intSupplier) {
+    public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
         try {
-            return intSupplier.getAsIntWithException();
+            return intSupplierWithException.getAsIntWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -78,12 +85,12 @@ public final class AutoCatch {
     /**
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param doubleSupplier the double supplier
+     * @param doubleSupplierWithException the double supplier
      * @return the primitive double provided by the supplier
      */
-    public static double autoCatch(final DoubleSupplierWithException doubleSupplier) {
+    public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
         try {
-            return doubleSupplier.getAsDoubleWithException();
+            return doubleSupplierWithException.getAsDoubleWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -94,12 +101,12 @@ public final class AutoCatch {
     /**
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param booleanSupplier the boolean supplier
+     * @param booleanSupplierWithException the boolean supplier
      * @return the primitive boolean provided by the supplier
      */
-    public static boolean autoCatch(final BooleanSupplierWithException booleanSupplier) {
+    public static boolean autoCatch(final BooleanSupplierWithException booleanSupplierWithException) {
         try {
-            return booleanSupplier.getAsBooleanWithException();
+            return booleanSupplierWithException.getAsBooleanWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -110,12 +117,12 @@ public final class AutoCatch {
     /**
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param charSupplier the char supplier
+     * @param charSupplierWithException the char supplier
      * @return the primitive char provided by the supplier
      */
-    public static char autoCatch(final CharSupplierWithException charSupplier) {
+    public static char autoCatch(final CharSupplierWithException charSupplierWithException) {
         try {
-            return charSupplier.getAsCharWithException();
+            return charSupplierWithException.getAsCharWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
@@ -126,12 +133,12 @@ public final class AutoCatch {
     /**
      * Execute the provided callable and wrap Exception (if any) in runtime.
      *
-     * @param byteSupplier the byte supplier
+     * @param byteSupplierWithException the byte supplier
      * @return the primitive byte provided by the supplier
      */
-    public static byte autoCatch(final ByteSupplierWithException byteSupplier) {
+    public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
         try {
-            return byteSupplier.getAsByteWithException();
+            return byteSupplierWithException.getAsByteWithException();
         } catch (final RuntimeException e) {
             throw e;
         } catch (final Exception e) {
