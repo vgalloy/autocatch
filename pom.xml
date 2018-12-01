@@ -50,7 +50,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Maven -->
-        <maven.version>3.5.4</maven.version>
+        <maven.version>3.6.0</maven.version>
         <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
         <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
