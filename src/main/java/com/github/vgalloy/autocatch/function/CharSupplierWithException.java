@@ -18,11 +18,11 @@ package com.github.vgalloy.autocatch.function;
 @FunctionalInterface
 public interface CharSupplierWithException {
 
-    /**
-     * Gets a result.
-     *
-     * @return a result
-     * @throws Exception the exception to wrap
-     */
-    char getAsCharWithException() throws Exception;
+  /**
+   * Gets a result.
+   *
+   * @return a result
+   * @throws Exception the exception to wrap
+   */
+  char getAsCharWithException() throws Exception;
 }

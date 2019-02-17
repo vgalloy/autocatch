@@ -20,15 +20,15 @@ import com.github.vgalloy.autocatch.AutoCatch;
 @FunctionalInterface
 public interface RunnableWithException extends Runnable {
 
-    @Override
-    default void run() {
-        AutoCatch.autoCatch(this);
-    }
+  @Override
+  default void run() {
+    AutoCatch.autoCatch(this);
+  }
 
-    /**
-     * Gets a result.
-     *
-     * @throws Exception the exception to wrap
-     */
-    void runWithException() throws Exception;
+  /**
+   * Gets a result.
+   *
+   * @throws Exception the exception to wrap
+   */
+  void runWithException() throws Exception;
 }
