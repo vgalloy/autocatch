@@ -19,19 +19,18 @@ import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import java.io.IOException;
 import java.util.concurrent.Callable;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Vincent Galloy on 20/11/18.
  *
  * @author Vincent Galloy
  */
-public class AutoCatchTest {
+class AutoCatchTest {
 
   @Test
-  public void correctCase() {
+  void correctCase() {
     // GIVEN
     final Integer value = 4;
     final Callable<Integer> callable = () -> value;
@@ -40,11 +39,11 @@ public class AutoCatchTest {
     final Integer result = AutoCatch.autoCatch(callable);
 
     // THEN
-    Assert.assertEquals(value, result);
+    Assertions.assertEquals(value, result);
   }
 
   @Test
-  public void throwRuntime() {
+  void throwRuntime() {
     // GIVEN
     final String message = "FAKE";
     final Callable<Integer> callable =
@@ -52,14 +51,16 @@ public class AutoCatchTest {
           throw new IllegalStateException(message);
         };
 
-    // WHEN / THEN
-    Assertions.assertThatThrownBy(() -> AutoCatch.autoCatch(callable))
-        .hasMessage(message)
-        .isInstanceOf(IllegalStateException.class);
+    // WHEN
+    final IllegalStateException exception =
+        Assertions.assertThrows(IllegalStateException.class, () -> AutoCatch.autoCatch(callable));
+
+    // THEN
+    Assertions.assertEquals(message, exception.getMessage());
   }
 
   @Test
-  public void throwException() {
+  void throwException() {
     // GIVEN
     final String message = "FAKE";
     final Callable<Integer> callable =
@@ -67,15 +68,17 @@ public class AutoCatchTest {
           throw new IOException(message);
         };
 
-    // WHEN / THEN
-    Assertions.assertThatThrownBy(() -> AutoCatch.autoCatch(callable))
-        .hasMessage("java.io.IOException: FAKE")
-        .isInstanceOf(RuntimeException.class)
-        .hasCauseExactlyInstanceOf(IOException.class);
+    // WHEN
+    final RuntimeException exception =
+        Assertions.assertThrows(RuntimeException.class, () -> AutoCatch.autoCatch(callable));
+
+    // THEN
+    Assertions.assertEquals("java.io.IOException: FAKE", exception.getMessage());
+    Assertions.assertEquals(IOException.class, exception.getCause().getClass());
   }
 
   @Test
-  public void intSupplier() {
+  void intSupplier() {
     // GIVEN
     final String message = "FAKE";
     final IntSupplierWithException callable =
@@ -83,15 +86,17 @@ public class AutoCatchTest {
           throw new IOException(message);
         };
 
-    // WHEN / THEN
-    Assertions.assertThatThrownBy(() -> AutoCatch.autoCatch(callable))
-        .hasMessage("java.io.IOException: FAKE")
-        .isInstanceOf(RuntimeException.class)
-        .hasCauseExactlyInstanceOf(IOException.class);
+    // WHEN
+    final RuntimeException exception =
+        Assertions.assertThrows(RuntimeException.class, () -> AutoCatch.autoCatch(callable));
+
+    // THEN
+    Assertions.assertEquals("java.io.IOException: FAKE", exception.getMessage());
+    Assertions.assertEquals(IOException.class, exception.getCause().getClass());
   }
 
   @Test
-  public void correctByteSupplier() {
+  void correctByteSupplier() {
     // GIVEN
     final byte input = 2;
     final ByteSupplierWithException callable = () -> input;
@@ -100,6 +105,6 @@ public class AutoCatchTest {
     final byte result = AutoCatch.autoCatch(callable);
 
     // THEN
-    Assertions.assertThat(result).isEqualTo(input);
+    Assertions.assertEquals(input, result);
   }
 }
