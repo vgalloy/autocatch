@@ -38,13 +38,12 @@ public final class AutoCatch {
    * @return the value provided by the callable
    */
   public static <T> T autoCatch(final Callable<T> callable) {
-    try {
-      return callable.call();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final Object[] wrapper = new Object[1];
+    autoCatch(
+        () -> {
+          wrapper[0] = callable.call();
+        });
+    return (T) wrapper[0];
   }
 
   /**
@@ -53,13 +52,9 @@ public final class AutoCatch {
    * @param runnableWithException the runnable
    */
   public static void autoCatch(final RunnableWithException runnableWithException) {
-    try {
-      runnableWithException.runWithException();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final ExceptionHandler<RuntimeException> handler =
+        ExceptionHandlerImpl.handle(runnableWithException);
+    handler.run();
   }
 
   /**
@@ -69,13 +64,12 @@ public final class AutoCatch {
    * @return the primitive int provided by the supplier
    */
   public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
-    try {
-      return intSupplierWithException.getAsIntWithException();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final int[] wrapper = new int[1];
+    autoCatch(
+        () -> {
+          wrapper[0] = intSupplierWithException.getAsIntWithException();
+        });
+    return wrapper[0];
   }
 
   /**
@@ -85,13 +79,12 @@ public final class AutoCatch {
    * @return the primitive double provided by the supplier
    */
   public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
-    try {
-      return doubleSupplierWithException.getAsDoubleWithException();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final double[] wrapper = new double[1];
+    autoCatch(
+        () -> {
+          wrapper[0] = doubleSupplierWithException.getAsDoubleWithException();
+        });
+    return wrapper[0];
   }
 
   /**
@@ -101,13 +94,12 @@ public final class AutoCatch {
    * @return the primitive boolean provided by the supplier
    */
   public static boolean autoCatch(final BooleanSupplierWithException booleanSupplierWithException) {
-    try {
-      return booleanSupplierWithException.getAsBooleanWithException();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final boolean[] wrapper = new boolean[1];
+    autoCatch(
+        () -> {
+          wrapper[0] = booleanSupplierWithException.getAsBooleanWithException();
+        });
+    return wrapper[0];
   }
 
   /**
@@ -117,13 +109,12 @@ public final class AutoCatch {
    * @return the primitive char provided by the supplier
    */
   public static char autoCatch(final CharSupplierWithException charSupplierWithException) {
-    try {
-      return charSupplierWithException.getAsCharWithException();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final char[] wrapper = new char[1];
+    autoCatch(
+        () -> {
+          wrapper[0] = charSupplierWithException.getAsCharWithException();
+        });
+    return wrapper[0];
   }
 
   /**
@@ -133,12 +124,11 @@ public final class AutoCatch {
    * @return the primitive byte provided by the supplier
    */
   public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
-    try {
-      return byteSupplierWithException.getAsByteWithException();
-    } catch (final RuntimeException e) {
-      throw e;
-    } catch (final Exception e) {
-      throw new RuntimeException(e);
-    }
+    final byte[] wrapper = new byte[1];
+    autoCatch(
+        () -> {
+          wrapper[0] = byteSupplierWithException.getAsByteWithException();
+        });
+    return wrapper[0];
   }
 }

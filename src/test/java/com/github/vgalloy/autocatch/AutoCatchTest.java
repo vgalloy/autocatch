@@ -69,12 +69,12 @@ class AutoCatchTest {
         };
 
     // WHEN
-    final RuntimeException exception =
-        Assertions.assertThrows(RuntimeException.class, () -> AutoCatch.autoCatch(callable));
+    final IOException exception =
+        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(callable));
 
     // THEN
-    Assertions.assertEquals("java.io.IOException: FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getCause().getClass());
+    Assertions.assertEquals("FAKE", exception.getMessage());
+    Assertions.assertEquals(IOException.class, exception.getClass());
   }
 
   @Test
@@ -87,12 +87,12 @@ class AutoCatchTest {
         };
 
     // WHEN
-    final RuntimeException exception =
-        Assertions.assertThrows(RuntimeException.class, () -> AutoCatch.autoCatch(callable));
+    final IOException exception =
+        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(callable));
 
     // THEN
-    Assertions.assertEquals("java.io.IOException: FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getCause().getClass());
+    Assertions.assertEquals("FAKE", exception.getMessage());
+    Assertions.assertEquals(IOException.class, exception.getClass());
   }
 
   @Test
