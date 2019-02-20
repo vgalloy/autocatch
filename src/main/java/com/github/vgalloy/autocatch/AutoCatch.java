@@ -54,8 +54,8 @@ public final class AutoCatch {
    * @param runnableWithException the runnable
    */
   public static void autoCatch(final RunnableWithException runnableWithException) {
-    final ExceptionHandler<RuntimeException> handler =
-        ExceptionHandlerImpl.handle(runnableWithException);
+    final RunnableWithGenericException<RuntimeException> handler =
+        ExceptionHandler.handle(runnableWithException);
     handler.run();
   }
 
