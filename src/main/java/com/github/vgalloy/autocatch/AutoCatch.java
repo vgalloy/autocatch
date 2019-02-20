@@ -43,7 +43,9 @@ public final class AutoCatch {
         () -> {
           wrapper[0] = callable.call();
         });
-    return (T) wrapper[0];
+    @SuppressWarnings("unchecked")
+    final T result = (T) wrapper[0];
+    return result;
   }
 
   /**
