@@ -7,11 +7,9 @@ interface CharSupplierWithExceptionHandler<E extends Exception> {
 
   char run() throws E;
 
+  @SuppressWarnings("unchecked")
   static CharSupplierWithExceptionHandler<RuntimeException> handle(
-      final CharSupplierWithException runnable) {
-    @SuppressWarnings("unchecked")
-    final CharSupplierWithExceptionHandler<RuntimeException> runtimeHandler =
-        (CharSupplierWithExceptionHandler) runnable::getAsCharWithException;
-    return runtimeHandler;
+      final CharSupplierWithException supplier) {
+    return (CharSupplierWithExceptionHandler) supplier::getAsCharWithException;
   }
 }

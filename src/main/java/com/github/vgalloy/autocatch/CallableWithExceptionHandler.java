@@ -7,10 +7,8 @@ interface CallableWithExceptionHandler<T, E extends Exception> {
 
   T run() throws E;
 
-  static <T> CallableWithExceptionHandler<T, RuntimeException> handle(final Callable<T> runnable) {
-    @SuppressWarnings("unchecked")
-    final CallableWithExceptionHandler<T, RuntimeException> runtimeHandler =
-        (CallableWithExceptionHandler) runnable::call;
-    return runtimeHandler;
+  @SuppressWarnings("unchecked")
+  static <T> CallableWithExceptionHandler<T, RuntimeException> handle(final Callable<T> callable) {
+    return (CallableWithExceptionHandler) callable::call;
   }
 }

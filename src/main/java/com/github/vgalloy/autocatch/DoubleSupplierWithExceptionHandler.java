@@ -7,11 +7,9 @@ interface DoubleSupplierWithExceptionHandler<E extends Exception> {
 
   double run() throws E;
 
+  @SuppressWarnings("unchecked")
   static DoubleSupplierWithExceptionHandler<RuntimeException> handle(
-      final DoubleSupplierWithException runnable) {
-    @SuppressWarnings("unchecked")
-    final DoubleSupplierWithExceptionHandler<RuntimeException> runtimeHandler =
-        (DoubleSupplierWithExceptionHandler) runnable::getAsDoubleWithException;
-    return runtimeHandler;
+      final DoubleSupplierWithException supplier) {
+    return (DoubleSupplierWithExceptionHandler) supplier::getAsDoubleWithException;
   }
 }

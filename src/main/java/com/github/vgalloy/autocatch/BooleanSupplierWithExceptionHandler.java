@@ -7,11 +7,9 @@ interface BooleanSupplierWithExceptionHandler<E extends Exception> {
 
   boolean run() throws E;
 
+  @SuppressWarnings("unchecked")
   static BooleanSupplierWithExceptionHandler<RuntimeException> handle(
-      final BooleanSupplierWithException runnable) {
-    @SuppressWarnings("unchecked")
-    final BooleanSupplierWithExceptionHandler<RuntimeException> runtimeHandler =
-        (BooleanSupplierWithExceptionHandler) runnable::getAsBooleanWithException;
-    return runtimeHandler;
+      final BooleanSupplierWithException supplier) {
+    return (BooleanSupplierWithExceptionHandler) supplier::getAsBooleanWithException;
   }
 }

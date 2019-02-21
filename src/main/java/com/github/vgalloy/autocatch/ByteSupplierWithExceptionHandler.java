@@ -7,11 +7,9 @@ interface ByteSupplierWithExceptionHandler<E extends Exception> {
 
   byte run() throws E;
 
+  @SuppressWarnings("unchecked")
   static ByteSupplierWithExceptionHandler<RuntimeException> handle(
-      final ByteSupplierWithException runnable) {
-    @SuppressWarnings("unchecked")
-    final ByteSupplierWithExceptionHandler<RuntimeException> runtimeHandler =
-        (ByteSupplierWithExceptionHandler) runnable::getAsByteWithException;
-    return runtimeHandler;
+      final ByteSupplierWithException supplier) {
+    return (ByteSupplierWithExceptionHandler) supplier::getAsByteWithException;
   }
 }

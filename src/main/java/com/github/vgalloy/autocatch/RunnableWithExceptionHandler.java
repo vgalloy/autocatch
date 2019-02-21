@@ -7,11 +7,9 @@ interface RunnableWithExceptionHandler<E extends Exception> {
 
   void run() throws E;
 
+  @SuppressWarnings("unchecked")
   static RunnableWithExceptionHandler<RuntimeException> handle(
-      final RunnableWithException runnable) {
-    @SuppressWarnings("unchecked")
-    final RunnableWithExceptionHandler<RuntimeException> runtimeHandler =
-        (RunnableWithExceptionHandler) runnable::runWithException;
-    return runtimeHandler;
+      final RunnableWithException supplier) {
+    return (RunnableWithExceptionHandler) supplier::runWithException;
   }
 }

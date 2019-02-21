@@ -27,7 +27,7 @@ public final class AutoCatch {
 
   /** Constructor. Private to avoid instantiation */
   private AutoCatch() {
-    throw new AssertionError("No instance of AutoCatch");
+    throw new AssertionError("No instance of com.github.vgalloy.autocatch.AutoCatch");
   }
 
   /**
@@ -38,9 +38,7 @@ public final class AutoCatch {
    * @return the value provided by the callable
    */
   public static <T> T autoCatch(final Callable<T> callable) {
-    final CallableWithExceptionHandler<T, RuntimeException> handler =
-        CallableWithExceptionHandler.handle(callable);
-    return handler.run();
+    return CallableWithExceptionHandler.handle(callable).run();
   }
 
   /**
@@ -49,9 +47,7 @@ public final class AutoCatch {
    * @param runnableWithException the runnable
    */
   public static void autoCatch(final RunnableWithException runnableWithException) {
-    final RunnableWithExceptionHandler<RuntimeException> handler =
-        RunnableWithExceptionHandler.handle(runnableWithException);
-    handler.run();
+    RunnableWithExceptionHandler.handle(runnableWithException).run();
   }
 
   /**
@@ -61,9 +57,7 @@ public final class AutoCatch {
    * @return the primitive int provided by the supplier
    */
   public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
-    final IntSupplierWithExceptionHandler<RuntimeException> handler =
-        IntSupplierWithExceptionHandler.handle(intSupplierWithException);
-    return handler.run();
+    return IntSupplierWithExceptionHandler.handle(intSupplierWithException).run();
   }
 
   /**
@@ -73,9 +67,7 @@ public final class AutoCatch {
    * @return the primitive double provided by the supplier
    */
   public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
-    final DoubleSupplierWithExceptionHandler<RuntimeException> handler =
-        DoubleSupplierWithExceptionHandler.handle(doubleSupplierWithException);
-    return handler.run();
+    return DoubleSupplierWithExceptionHandler.handle(doubleSupplierWithException).run();
   }
 
   /**
@@ -85,9 +77,7 @@ public final class AutoCatch {
    * @return the primitive boolean provided by the supplier
    */
   public static boolean autoCatch(final BooleanSupplierWithException booleanSupplierWithException) {
-    final BooleanSupplierWithExceptionHandler<RuntimeException> handler =
-        BooleanSupplierWithExceptionHandler.handle(booleanSupplierWithException);
-    return handler.run();
+    return BooleanSupplierWithExceptionHandler.handle(booleanSupplierWithException).run();
   }
 
   /**
@@ -97,9 +87,7 @@ public final class AutoCatch {
    * @return the primitive char provided by the supplier
    */
   public static char autoCatch(final CharSupplierWithException charSupplierWithException) {
-    final CharSupplierWithExceptionHandler<RuntimeException> handler =
-        CharSupplierWithExceptionHandler.handle(charSupplierWithException);
-    return handler.run();
+    return CharSupplierWithExceptionHandler.handle(charSupplierWithException).run();
   }
 
   /**
@@ -109,8 +97,6 @@ public final class AutoCatch {
    * @return the primitive byte provided by the supplier
    */
   public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
-    final ByteSupplierWithExceptionHandler<RuntimeException> handler =
-        ByteSupplierWithExceptionHandler.handle(byteSupplierWithException);
-    return handler.run();
+    return ByteSupplierWithExceptionHandler.handle(byteSupplierWithException).run();
   }
 }
