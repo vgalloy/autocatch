@@ -31,7 +31,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param callable the callable
    * @param <T> the return type of the callable
@@ -42,7 +42,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param runnableWithException the runnable
    */
@@ -51,7 +51,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param intSupplierWithException the int supplier
    * @return the primitive int provided by the supplier
@@ -61,7 +61,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param doubleSupplierWithException the double supplier
    * @return the primitive double provided by the supplier
@@ -71,7 +71,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param booleanSupplierWithException the boolean supplier
    * @return the primitive boolean provided by the supplier
@@ -81,7 +81,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param charSupplierWithException the char supplier
    * @return the primitive char provided by the supplier
@@ -91,7 +91,7 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and or throw the Exception without declaring it.
+   * Execute the provided callable without declaring the exception.
    *
    * @param byteSupplierWithException the byte supplier
    * @return the primitive byte provided by the supplier
