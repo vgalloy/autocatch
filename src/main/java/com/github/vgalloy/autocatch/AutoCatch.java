@@ -31,106 +31,86 @@ public final class AutoCatch {
   }
 
   /**
-   * Execute the provided callable and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param callable the callable
    * @param <T> the return type of the callable
    * @return the value provided by the callable
    */
   public static <T> T autoCatch(final Callable<T> callable) {
-    final Object[] wrapper = new Object[1];
-    autoCatch(
-        () -> {
-          wrapper[0] = callable.call();
-        });
-    @SuppressWarnings("unchecked")
-    final T result = (T) wrapper[0];
-    return result;
+    final CallableWithExceptionHandler<T, RuntimeException> handler =
+        CallableWithExceptionHandler.handle(callable);
+    return handler.run();
   }
 
   /**
-   * Execute the provided callable and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param runnableWithException the runnable
    */
   public static void autoCatch(final RunnableWithException runnableWithException) {
-    final RunnableWithGenericException<RuntimeException> handler =
-        ExceptionHandler.handle(runnableWithException);
+    final RunnableWithExceptionHandler<RuntimeException> handler =
+        RunnableWithExceptionHandler.handle(runnableWithException);
     handler.run();
   }
 
   /**
-   * Execute the provided supplier and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param intSupplierWithException the int supplier
    * @return the primitive int provided by the supplier
    */
   public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
-    final int[] wrapper = new int[1];
-    autoCatch(
-        () -> {
-          wrapper[0] = intSupplierWithException.getAsIntWithException();
-        });
-    return wrapper[0];
+    final IntSupplierWithExceptionHandler<RuntimeException> handler =
+        IntSupplierWithExceptionHandler.handle(intSupplierWithException);
+    return handler.run();
   }
 
   /**
-   * Execute the provided callable and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param doubleSupplierWithException the double supplier
    * @return the primitive double provided by the supplier
    */
   public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
-    final double[] wrapper = new double[1];
-    autoCatch(
-        () -> {
-          wrapper[0] = doubleSupplierWithException.getAsDoubleWithException();
-        });
-    return wrapper[0];
+    final DoubleSupplierWithExceptionHandler<RuntimeException> handler =
+        DoubleSupplierWithExceptionHandler.handle(doubleSupplierWithException);
+    return handler.run();
   }
 
   /**
-   * Execute the provided callable and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param booleanSupplierWithException the boolean supplier
    * @return the primitive boolean provided by the supplier
    */
   public static boolean autoCatch(final BooleanSupplierWithException booleanSupplierWithException) {
-    final boolean[] wrapper = new boolean[1];
-    autoCatch(
-        () -> {
-          wrapper[0] = booleanSupplierWithException.getAsBooleanWithException();
-        });
-    return wrapper[0];
+    final BooleanSupplierWithExceptionHandler<RuntimeException> handler =
+        BooleanSupplierWithExceptionHandler.handle(booleanSupplierWithException);
+    return handler.run();
   }
 
   /**
-   * Execute the provided callable and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param charSupplierWithException the char supplier
    * @return the primitive char provided by the supplier
    */
   public static char autoCatch(final CharSupplierWithException charSupplierWithException) {
-    final char[] wrapper = new char[1];
-    autoCatch(
-        () -> {
-          wrapper[0] = charSupplierWithException.getAsCharWithException();
-        });
-    return wrapper[0];
+    final CharSupplierWithExceptionHandler<RuntimeException> handler =
+        CharSupplierWithExceptionHandler.handle(charSupplierWithException);
+    return handler.run();
   }
 
   /**
-   * Execute the provided callable and wrap Exception (if any) in runtime.
+   * Execute the provided callable and or throw the Exception without declaring it.
    *
    * @param byteSupplierWithException the byte supplier
    * @return the primitive byte provided by the supplier
    */
   public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
-    final byte[] wrapper = new byte[1];
-    autoCatch(
-        () -> {
-          wrapper[0] = byteSupplierWithException.getAsByteWithException();
-        });
-    return wrapper[0];
+    final ByteSupplierWithExceptionHandler<RuntimeException> handler =
+        ByteSupplierWithExceptionHandler.handle(byteSupplierWithException);
+    return handler.run();
   }
 }

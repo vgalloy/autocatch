@@ -16,6 +16,7 @@
 package com.github.vgalloy.autocatch;
 
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
+import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import java.io.IOException;
 import java.util.concurrent.Callable;
@@ -93,6 +94,18 @@ class AutoCatchTest {
     // THEN
     Assertions.assertEquals("FAKE", exception.getMessage());
     Assertions.assertEquals(IOException.class, exception.getClass());
+  }
+
+  @Test
+  void charSupplier() {
+    // GIVEN
+    final CharSupplierWithException callable = () -> '2';
+
+    // WHEN
+    final char result = AutoCatch.autoCatch(callable);
+
+    // THEN
+    Assertions.assertEquals('2', result);
   }
 
   @Test
