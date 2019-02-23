@@ -15,8 +15,15 @@
  */
 package com.github.vgalloy.autocatch.function;
 
+import com.github.vgalloy.autocatch.AutoCatch;
+
 @FunctionalInterface
-public interface ByteSupplierWithException {
+public interface ByteSupplierWithException extends ByteSupplier {
+
+  @Override
+  default byte getAsByte() {
+    return AutoCatch.autoCatch(this);
+  }
 
   /**
    * Gets a result.

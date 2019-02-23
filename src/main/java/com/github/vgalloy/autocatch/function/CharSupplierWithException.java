@@ -15,8 +15,15 @@
  */
 package com.github.vgalloy.autocatch.function;
 
+import com.github.vgalloy.autocatch.AutoCatch;
+
 @FunctionalInterface
-public interface CharSupplierWithException {
+public interface CharSupplierWithException extends CharSupplier {
+
+  @Override
+  default char getAsChar() {
+    return AutoCatch.autoCatch(this);
+  }
 
   /**
    * Gets a result.
