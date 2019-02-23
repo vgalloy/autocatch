@@ -20,9 +20,7 @@ import com.github.vgalloy.autocatch.function.RunnableWithException;
 @FunctionalInterface
 interface RunnableWithExceptionHandler<E extends Exception> {
 
-  /**
-   * The action to run.
-   */
+  /** The action to run. */
   void run() throws E;
 
   @SuppressWarnings("unchecked")
