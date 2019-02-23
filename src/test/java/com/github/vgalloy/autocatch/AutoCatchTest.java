@@ -124,9 +124,9 @@ class AutoCatchTest {
   }
 
   @Test
-  void correctPredicateManagement() {
+  void predicate() {
     // GIVEN
-    final Optional<File> empty = Optional.empty();
+    final Optional<File> empty = Optional.of(new File(""));
 
     // WHEN
     final boolean result =
@@ -137,6 +137,19 @@ class AutoCatchTest {
 
     // THEN
     Assertions.assertFalse(result);
+  }
+
+  @Test
+  void function() {
+    // GIVEN
+    final Optional<File> file = Optional.of(new File(""));
+
+    // WHEN
+    final boolean result =
+        file.map(AutoCatch.<File, Boolean>unDeclare(this::isAbsolute)).orElse(false);
+
+    // THEN
+    Assertions.assertTrue(result);
   }
 
   private boolean isAbsolute(final File file) throws Exception {

@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 final class UndeclaredExceptionHandler implements ExceptionHandler {
 
   @Override
-  public BooleanSupplier unDeclare(BooleanSupplierWithException supplier) {
+  public BooleanSupplier unDeclare(final BooleanSupplierWithException supplier) {
     return () -> {
       try {
         return supplier.getAsBooleanWithException();
@@ -46,7 +46,7 @@ final class UndeclaredExceptionHandler implements ExceptionHandler {
   }
 
   @Override
-  public ByteSupplier unDeclare(ByteSupplierWithException supplier) {
+  public ByteSupplier unDeclare(final ByteSupplierWithException supplier) {
     return () -> {
       try {
         return supplier.getAsByteWithException();
@@ -59,10 +59,10 @@ final class UndeclaredExceptionHandler implements ExceptionHandler {
   }
 
   @Override
-  public CharSupplier unDeclare(CharSupplierWithException supplier) {
+  public CharSupplier unDeclare(final CharSupplierWithException supplier) {
     return () -> {
       try {
-        return supplier.getAsChar();
+        return supplier.getAsCharWithException();
       } catch (final RuntimeException runtime) {
         throw runtime;
       } catch (final Exception exception) {
@@ -72,10 +72,10 @@ final class UndeclaredExceptionHandler implements ExceptionHandler {
   }
 
   @Override
-  public DoubleSupplier unDeclare(DoubleSupplierWithException supplier) {
+  public DoubleSupplier unDeclare(final DoubleSupplierWithException supplier) {
     return () -> {
       try {
-        return supplier.getAsDouble();
+        return supplier.getAsDoubleWithException();
       } catch (final RuntimeException runtime) {
         throw runtime;
       } catch (final Exception exception) {
@@ -85,10 +85,10 @@ final class UndeclaredExceptionHandler implements ExceptionHandler {
   }
 
   @Override
-  public IntSupplier unDeclare(IntSupplierWithException supplier) {
+  public IntSupplier unDeclare(final IntSupplierWithException supplier) {
     return () -> {
       try {
-        return supplier.getAsInt();
+        return supplier.getAsIntWithException();
       } catch (final RuntimeException runtime) {
         throw runtime;
       } catch (final Exception exception) {
@@ -98,7 +98,7 @@ final class UndeclaredExceptionHandler implements ExceptionHandler {
   }
 
   @Override
-  public Runnable unDeclare(RunnableWithException runnable) {
+  public Runnable unDeclare(final RunnableWithException runnable) {
     return () -> {
       try {
         runnable.runWithException();
@@ -111,7 +111,7 @@ final class UndeclaredExceptionHandler implements ExceptionHandler {
   }
 
   @Override
-  public <T> Supplier<T> unDeclare(Callable<T> callable) {
+  public <T> Supplier<T> unDeclare(final Callable<T> callable) {
     return () -> {
       try {
         return callable.call();

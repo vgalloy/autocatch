@@ -32,37 +32,37 @@ import java.util.function.Supplier;
 final class ExceptionForwarder implements ExceptionHandler {
 
   @Override
-  public BooleanSupplier unDeclare(BooleanSupplierWithException supplier) {
+  public BooleanSupplier unDeclare(final BooleanSupplierWithException supplier) {
     return BooleanSupplierWithExceptionHandler.handle(supplier)::getAsBoolean;
   }
 
   @Override
-  public ByteSupplier unDeclare(ByteSupplierWithException supplier) {
+  public ByteSupplier unDeclare(final ByteSupplierWithException supplier) {
     return ByteSupplierWithExceptionHandler.handle(supplier)::getAsByte;
   }
 
   @Override
-  public CharSupplier unDeclare(CharSupplierWithException supplier) {
+  public CharSupplier unDeclare(final CharSupplierWithException supplier) {
     return CharSupplierWithExceptionHandler.handle(supplier)::getAsChar;
   }
 
   @Override
-  public DoubleSupplier unDeclare(DoubleSupplierWithException supplier) {
+  public DoubleSupplier unDeclare(final DoubleSupplierWithException supplier) {
     return DoubleSupplierWithExceptionHandler.handle(supplier)::getAsDouble;
   }
 
   @Override
-  public IntSupplier unDeclare(IntSupplierWithException supplier) {
+  public IntSupplier unDeclare(final IntSupplierWithException supplier) {
     return IntSupplierWithExceptionHandler.handle(supplier)::getAsInt;
   }
 
   @Override
-  public Runnable unDeclare(RunnableWithException runnable) {
+  public Runnable unDeclare(final RunnableWithException runnable) {
     return RunnableWithExceptionHandler.handle(runnable)::run;
   }
 
   @Override
-  public <T> Supplier<T> unDeclare(Callable<T> callable) {
+  public <T> Supplier<T> unDeclare(final Callable<T> callable) {
     return CallableWithExceptionHandler.handle(callable)::call;
   }
 }

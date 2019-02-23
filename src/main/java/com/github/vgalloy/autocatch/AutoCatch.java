@@ -185,14 +185,14 @@ public final class AutoCatch {
   }
 
   /**
-   * Convert the provided {@link PredicateWithError} declaring exception into a simple {@link
-   * Predicate}.
+   * Convert the provided {@link FunctionWithError} declaring exception into a simple {@link
+   * Function}.
    *
-   * @param predicate the predicate declaring an exception
+   * @param function the function declaring an exception
    * @return a predicate
    */
-  public static <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> predicate) {
-    return t -> EXCEPTION_HANDLER.unDeclare(() -> predicate.apply(t)).get();
+  public static <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> function) {
+    return t -> EXCEPTION_HANDLER.unDeclare(() -> function.apply(t)).get();
   }
 
   /**

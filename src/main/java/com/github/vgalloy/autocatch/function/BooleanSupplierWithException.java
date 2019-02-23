@@ -15,16 +15,8 @@
  */
 package com.github.vgalloy.autocatch.function;
 
-import com.github.vgalloy.autocatch.AutoCatch;
-import java.util.function.BooleanSupplier;
-
 @FunctionalInterface
-public interface BooleanSupplierWithException extends BooleanSupplier {
-
-  @Override
-  default boolean getAsBoolean() {
-    return AutoCatch.autoCatch(this);
-  }
+public interface BooleanSupplierWithException {
 
   /**
    * Gets a result.

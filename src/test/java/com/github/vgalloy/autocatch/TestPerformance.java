@@ -39,8 +39,8 @@ public class TestPerformance {
    * TestPerformance.noExceptionWithAutoCatchWithUnDeclare                      thrpt    2  51476296.390          ops/s
    * TestPerformance.noExceptionWithNothing                                     thrpt    2  63340512.237          ops/s
    * TestPerformance.noExceptionWithTryCatch                                    thrpt    2  64143181.047          ops/s
-   * TestPerformance.noExceptionWtihDirectForwardExceptionHandlerInvocation     thrpt    2  51414633.712          ops/s
-   * TestPerformance.noExceptionWtihDirectUndeclaredExceptionHandlerInvocation  thrpt    2  63800207.537          ops/s
+   * TestPerformance.noExceptionWithDirectForwardExceptionHandlerInvocation     thrpt    2  51414633.712          ops/s
+   * TestPerformance.noExceptionWithDirectUndeclaredExceptionHandlerInvocation  thrpt    2  63800207.537          ops/s
    * </pre>
    */
   public static void main(String[] args) throws Exception {
@@ -78,7 +78,7 @@ public class TestPerformance {
   private static final ExceptionHandler FORWARD_HANDLER = ExceptionHandler.exceptionForwarder();
 
   @Benchmark
-  public Integer noExceptionWtihDirectForwardExceptionHandlerInvocation() {
+  public Integer noExceptionWithDirectForwardExceptionHandlerInvocation() {
     try {
       return FORWARD_HANDLER.unDeclare(CALLABLE_WITHOUT_EXCEPTION).get();
     } catch (final Exception ignored) {
@@ -90,7 +90,7 @@ public class TestPerformance {
       ExceptionHandler.wrapWithUndeclaredHandler();
 
   @Benchmark
-  public Integer noExceptionWtihDirectUndeclaredExceptionHandlerInvocation() {
+  public Integer noExceptionWithDirectUndeclaredExceptionHandlerInvocation() {
     try {
       return UNDECLARED_HANDLER.unDeclare(CALLABLE_WITHOUT_EXCEPTION).get();
     } catch (final Exception ignored) {
