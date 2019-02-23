@@ -31,12 +31,16 @@ import java.util.function.Supplier;
 
 public interface ExceptionHandler {
 
+  /**
+   * The exception will be wrapped into an {@link UndeclaredExceptionHandler}.
+   * @return a instance of ExceptionHandler
+   */
   static ExceptionHandler toUndeclaredHandler() {
     return new UndeclaredExceptionHandler();
   }
 
   /**
-   * The exception is not declare the still throw.
+   * The exception is not declare but still throw if exists.
    *
    * <pre>{@code
    * void throwIOException() {
