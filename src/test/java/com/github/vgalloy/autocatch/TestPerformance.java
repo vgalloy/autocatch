@@ -1,3 +1,18 @@
+/*
+ * Copyright 2019 Vincent Galloy
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.github.vgalloy.autocatch;
 
 import java.io.IOException;
@@ -25,12 +40,12 @@ public class TestPerformance {
    * <p>Benchmark Mode Cnt Score Error Units TestPerformance.exceptionWithAutoCatch thrpt 5
    * 137606.601 ± 9483.009 ops/s TestPerformance.exceptionWithAutoCatchOldGeneration thrpt 5
    * 138263.851 ± 3985.082 ops/s TestPerformance.exceptionWithNothing thrpt 5 144224.108 ± 3954.272
-   * ops/s TestPerformance.exceptionWithTryCatch __________thrpt 5 68815.141 ± 861.399 ops/s
-   * TestPerformance.noExceptionWithAutoCatch _____________thrpt 5 224966585.577 ± 20264899.088
-   * ops/s TestPerformance.noExceptionWithAutoCatchOldGeneration thrpt 5 95196421.562 ± 9492264.557
-   * ops/s TestPerformance.noExceptionWithNothing _______________thrpt 5 226469413.017 ± 5743253.163
-   * ops/s TestPerformance.noExceptionWithTryCatch ______________thrpt 5 232864054.337 ± 3956224.363
-   * ops/s
+   * ops/s TestPerformance.exceptionWithTryCatch ________________thrpt 5 68815.141 ± 861.399 ops/s
+   * TestPerformance.noExceptionWithAutoCatch ___________________thrpt 5 224966585.577 ±
+   * 20264899.088 ops/s TestPerformance.noExceptionWithAutoCatchOldGeneration thrpt 5 95196421.562 ±
+   * 9492264.557 ops/s TestPerformance.noExceptionWithNothing _______________thrpt 5 226469413.017 ±
+   * 5743253.163 ops/s TestPerformance.noExceptionWithTryCatch ______________thrpt 5 232864054.337 ±
+   * 3956224.363 ops/s
    */
   public static void main(String[] args) throws Exception {
     org.openjdk.jmh.Main.main(args);
