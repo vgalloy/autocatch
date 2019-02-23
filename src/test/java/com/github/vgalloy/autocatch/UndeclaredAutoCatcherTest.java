@@ -19,8 +19,11 @@ import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
+import com.github.vgalloy.autocatch.handler.AutoCatcher;
+import com.github.vgalloy.autocatch.handler.ExceptionHandler;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +34,9 @@ import org.junit.jupiter.api.Test;
  *
  * @author Vincent Galloy
  */
-class AutoCatchTest {
+class UndeclaredAutoCatcherTest {
+
+  private final AutoCatcher AUTO_CATCHER = ExceptionHandler.wrapWithUndeclaredHandler();
 
   @Test
   void correctCase() {
@@ -40,7 +45,7 @@ class AutoCatchTest {
     final Callable<Integer> callable = () -> value;
 
     // WHEN
-    final Integer result = AutoCatch.autoCatch(callable);
+    final Integer result = AUTO_CATCHER.autoCatch(callable);
 
     // THEN
     Assertions.assertEquals(value, result);
@@ -57,7 +62,7 @@ class AutoCatchTest {
 
     // WHEN
     final IllegalStateException exception =
-        Assertions.assertThrows(IllegalStateException.class, () -> AutoCatch.autoCatch(callable));
+        Assertions.assertThrows(IllegalStateException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
     Assertions.assertEquals(message, exception.getMessage());
@@ -73,12 +78,12 @@ class AutoCatchTest {
         };
 
     // WHEN
-    final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(callable));
+    final UndeclaredThrowableException exception =
+        Assertions.assertThrows(UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
-    Assertions.assertEquals("FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getClass());
+    Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
+    Assertions.assertEquals(IOException.class, exception.getUndeclaredThrowable().getClass());
   }
 
   @Test
@@ -91,12 +96,12 @@ class AutoCatchTest {
         };
 
     // WHEN
-    final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(callable));
+    final UndeclaredThrowableException exception =
+        Assertions.assertThrows(UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
-    Assertions.assertEquals("FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getClass());
+    Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
+    Assertions.assertEquals(IOException.class, exception.getUndeclaredThrowable().getClass());
   }
 
   @Test
@@ -105,7 +110,7 @@ class AutoCatchTest {
     final CharSupplierWithException callable = () -> '2';
 
     // WHEN
-    final char result = AutoCatch.autoCatch(callable);
+    final char result = AUTO_CATCHER.autoCatch(callable);
 
     // THEN
     Assertions.assertEquals('2', result);
@@ -118,7 +123,7 @@ class AutoCatchTest {
     final ByteSupplierWithException callable = () -> input;
 
     // WHEN
-    final byte result = AutoCatch.autoCatch(callable);
+    final byte result = AUTO_CATCHER.autoCatch(callable);
 
     // THEN
     Assertions.assertEquals(input, result);
@@ -132,8 +137,8 @@ class AutoCatchTest {
     // WHEN
     final boolean result =
         empty
-            .filter(AutoCatch.unDeclare(this::isAbsolute))
-            .map(AutoCatch.<File, Boolean>unDeclare(this::isAbsolute))
+            .filter(AUTO_CATCHER.unDeclare(this::isAbsolute))
+            .map(AUTO_CATCHER.<File, Boolean>unDeclare(this::isAbsolute))
             .orElse(false);
 
     // THEN
@@ -147,7 +152,7 @@ class AutoCatchTest {
 
     // WHEN
     final boolean result =
-        file.map(AutoCatch.<File, Boolean>unDeclare(this::isAbsolute)).orElse(false);
+        file.map(AUTO_CATCHER.<File, Boolean>unDeclare(this::isAbsolute)).orElse(false);
 
     // THEN
     Assertions.assertTrue(result);
@@ -161,12 +166,12 @@ class AutoCatchTest {
     };
 
     // WHEN
-    final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(runnableWithException));
+    final UndeclaredThrowableException exception =
+        Assertions.assertThrows(UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(runnableWithException));
 
     // THEN
-    Assertions.assertEquals("FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getClass());
+    Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
+    Assertions.assertEquals(IOException.class, exception.getUndeclaredThrowable().getClass());
   }
 
   private boolean isAbsolute(final File file) throws Exception {

@@ -104,14 +104,4 @@ public interface AutoCatcher extends ExceptionHandler {
   default <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> function) {
     return t -> this.unDeclare(() -> function.apply(t)).get();
   }
-
-  /**
-   * Convert the provided runnable into another which is not declaring exception.
-   *
-   * @param runnable the runnable declaring an exception
-   * @return a runnable
-   */
-  default Runnable unDeclare(final RunnableWithException runnable) {
-    return this.unDeclare(runnable);
-  }
 }
