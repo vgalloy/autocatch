@@ -16,58 +16,26 @@
 package com.github.vgalloy.autocatch;
 
 import com.github.vgalloy.autocatch.function.BooleanSupplierWithException;
+import com.github.vgalloy.autocatch.function.ByteSupplier;
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
+import com.github.vgalloy.autocatch.function.CharSupplier;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.DoubleSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import java.util.concurrent.Callable;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 public final class AutoCatch {
 
-  /** Constructor. Private to avoid instantiation */
+  /**
+   * Constructor. Private to avoid instantiation
+   */
   private AutoCatch() {
     throw new AssertionError("No instance of com.github.vgalloy.autocatch.AutoCatch");
-  }
-
-  /**
-   * Execute the provided callable without declaring the exception.
-   *
-   * @param callable the callable
-   * @param <T> the return type of the callable
-   * @return the value provided by the callable
-   */
-  public static <T> T autoCatch(final Callable<T> callable) {
-    return CallableWithExceptionHandler.handle(callable).run();
-  }
-
-  /**
-   * Execute the provided callable without declaring the exception.
-   *
-   * @param runnableWithException the runnable
-   */
-  public static void autoCatch(final RunnableWithException runnableWithException) {
-    RunnableWithExceptionHandler.handle(runnableWithException).run();
-  }
-
-  /**
-   * Execute the provided callable without declaring the exception.
-   *
-   * @param intSupplierWithException the int supplier
-   * @return the primitive int provided by the supplier
-   */
-  public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
-    return IntSupplierWithExceptionHandler.handle(intSupplierWithException).run();
-  }
-
-  /**
-   * Execute the provided callable without declaring the exception.
-   *
-   * @param doubleSupplierWithException the double supplier
-   * @return the primitive double provided by the supplier
-   */
-  public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
-    return DoubleSupplierWithExceptionHandler.handle(doubleSupplierWithException).run();
   }
 
   /**
@@ -83,6 +51,16 @@ public final class AutoCatch {
   /**
    * Execute the provided callable without declaring the exception.
    *
+   * @param byteSupplierWithException the byte supplier
+   * @return the primitive byte provided by the supplier
+   */
+  public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
+    return ByteSupplierWithExceptionHandler.handle(byteSupplierWithException).run();
+  }
+
+  /**
+   * Execute the provided callable without declaring the exception.
+   *
    * @param charSupplierWithException the char supplier
    * @return the primitive char provided by the supplier
    */
@@ -93,10 +71,110 @@ public final class AutoCatch {
   /**
    * Execute the provided callable without declaring the exception.
    *
-   * @param byteSupplierWithException the byte supplier
-   * @return the primitive byte provided by the supplier
+   * @param doubleSupplierWithException the double supplier
+   * @return the primitive double provided by the supplier
    */
-  public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
-    return ByteSupplierWithExceptionHandler.handle(byteSupplierWithException).run();
+  public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
+    return DoubleSupplierWithExceptionHandler.handle(doubleSupplierWithException).run();
+  }
+
+  /**
+   * Execute the provided callable without declaring the exception.
+   *
+   * @param intSupplierWithException the int supplier
+   * @return the primitive int provided by the supplier
+   */
+  public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
+    return IntSupplierWithExceptionHandler.handle(intSupplierWithException).run();
+  }
+
+  /**
+   * Execute the provided callable without declaring the exception.
+   *
+   * @param runnableWithException the runnable
+   */
+  public static void autoCatch(final RunnableWithException runnableWithException) {
+    RunnableWithExceptionHandler.handle(runnableWithException).run();
+  }
+
+  /**
+   * Execute the provided callable without declaring the exception.
+   *
+   * @param callable the callable
+   * @param <T>      the return type of the callable
+   * @return the value provided by the callable
+   */
+  public static <T> T autoCatch(final Callable<T> callable) {
+    return CallableWithExceptionHandler.handle(callable).run();
+  }
+
+  /**
+   * Convert the provided supplier into another which is not declaring exception.
+   *
+   * @param supplier the supplier declaring an exception
+   * @return the supplier not declaring exception
+   */
+  public static BooleanSupplier unDeclare(final BooleanSupplierWithException supplier) {
+    return supplier;
+  }
+
+  /**
+   * Convert the provided supplier into another which is not declaring exception.
+   *
+   * @param supplier the supplier declaring an exception
+   * @return a supplier not declaring exception
+   */
+  public static ByteSupplier unDeclare(final ByteSupplierWithException supplier) {
+    return supplier;
+  }
+
+  /**
+   * Convert the provided supplier into another which is not declaring exception.
+   *
+   * @param supplier the supplier declaring an exception
+   * @return a supplier not declaring exception
+   */
+  public static CharSupplier unDeclare(final CharSupplierWithException supplier) {
+    return supplier;
+  }
+
+  /**
+   * Convert the provided supplier into another which is not declaring exception.
+   *
+   * @param supplier the supplier declaring an exception
+   * @return a supplier not declaring exception
+   */
+  public static DoubleSupplier unDeclare(final DoubleSupplierWithException supplier) {
+    return supplier;
+  }
+
+  /**
+   * Convert the provided supplier into another which is not declaring exception.
+   *
+   * @param supplier the supplier declaring an exception
+   * @return a supplier not declaring exception
+   */
+  public static IntSupplier unDeclare(final IntSupplierWithException supplier) {
+    return supplier;
+  }
+
+  /**
+   * Convert the provided runnable into another which is not declaring exception.
+   *
+   * @param runnable the runnable declaring an exception
+   * @return a runnable
+   */
+  public static Runnable unDeclare(final RunnableWithException runnable) {
+    return runnable;
+  }
+
+  /**
+   * Convert the provided Callable into a supplier.
+   *
+   * @param callable the callable declaring an exception
+   * @return a supplier
+   */
+  public static <T> Supplier<T> unDeclare(final Callable<T> callable) {
+    return () -> AutoCatch.autoCatch(callable);
   }
 }
