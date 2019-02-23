@@ -126,7 +126,7 @@ class AutoCatchTest {
   @Test
   void predicate() {
     // GIVEN
-    final Optional<File> empty = Optional.of(new File(""));
+    final Optional<File> empty = Optional.empty();
 
     // WHEN
     final boolean result =

@@ -30,7 +30,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
-final class UndeclaredExceptionHandler implements ExceptionHandler {
+final class UndeclaredExceptionHandler implements AutoCatcher {
 
   @Override
   public BooleanSupplier unDeclare(final BooleanSupplierWithException supplier) {

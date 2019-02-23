@@ -25,6 +25,7 @@ import com.github.vgalloy.autocatch.function.FunctionWithError;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.PredicateWithError;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
+import com.github.vgalloy.autocatch.handler.AutoCatcher;
 import com.github.vgalloy.autocatch.handler.ExceptionHandler;
 import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
@@ -36,7 +37,7 @@ import java.util.function.Supplier;
 
 public final class AutoCatch {
 
-  private static final ExceptionHandler EXCEPTION_HANDLER = ExceptionHandler.exceptionForwarder();
+  private static final AutoCatcher AUTO_CATCHER = ExceptionHandler.exceptionForwarder();
 
   /** Constructor. Private to avoid instantiation */
   private AutoCatch() {
@@ -50,7 +51,7 @@ public final class AutoCatch {
    * @return the primitive boolean provided by the supplier
    */
   public static boolean autoCatch(final BooleanSupplierWithException booleanSupplierWithException) {
-    return EXCEPTION_HANDLER.unDeclare(booleanSupplierWithException).getAsBoolean();
+    return AUTO_CATCHER.autoCatch(booleanSupplierWithException);
   }
 
   /**
@@ -60,7 +61,7 @@ public final class AutoCatch {
    * @return the primitive byte provided by the supplier
    */
   public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
-    return EXCEPTION_HANDLER.unDeclare(byteSupplierWithException).getAsByte();
+    return AUTO_CATCHER.autoCatch(byteSupplierWithException);
   }
 
   /**
@@ -70,7 +71,7 @@ public final class AutoCatch {
    * @return the primitive char provided by the supplier
    */
   public static char autoCatch(final CharSupplierWithException charSupplierWithException) {
-    return EXCEPTION_HANDLER.unDeclare(charSupplierWithException).getAsChar();
+    return AUTO_CATCHER.autoCatch(charSupplierWithException);
   }
 
   /**
@@ -80,7 +81,7 @@ public final class AutoCatch {
    * @return the primitive double provided by the supplier
    */
   public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
-    return EXCEPTION_HANDLER.unDeclare(doubleSupplierWithException).getAsDouble();
+    return AUTO_CATCHER.autoCatch(doubleSupplierWithException);
   }
 
   /**
@@ -90,7 +91,7 @@ public final class AutoCatch {
    * @return the primitive int provided by the supplier
    */
   public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
-    return EXCEPTION_HANDLER.unDeclare(intSupplierWithException).getAsInt();
+    return AUTO_CATCHER.autoCatch(intSupplierWithException);
   }
 
   /**
@@ -99,7 +100,7 @@ public final class AutoCatch {
    * @param runnableWithException the runnable
    */
   public static void autoCatch(final RunnableWithException runnableWithException) {
-    EXCEPTION_HANDLER.unDeclare(runnableWithException).run();
+    AUTO_CATCHER.autoCatch(runnableWithException);
   }
 
   /**
@@ -110,7 +111,7 @@ public final class AutoCatch {
    * @return the value provided by the callable
    */
   public static <T> T autoCatch(final Callable<T> callable) {
-    return EXCEPTION_HANDLER.unDeclare(callable).get();
+    return AUTO_CATCHER.autoCatch(callable);
   }
 
   /**
@@ -120,7 +121,7 @@ public final class AutoCatch {
    * @return a supplier
    */
   public static <T> Supplier<T> unDeclare(final Callable<T> callable) {
-    return EXCEPTION_HANDLER.unDeclare(callable);
+    return AUTO_CATCHER.unDeclare(callable);
   }
 
   /**
@@ -130,7 +131,7 @@ public final class AutoCatch {
    * @return the supplier not declaring exception
    */
   public static BooleanSupplier unDeclare(final BooleanSupplierWithException supplier) {
-    return EXCEPTION_HANDLER.unDeclare(supplier);
+    return AUTO_CATCHER.unDeclare(supplier);
   }
 
   /**
@@ -140,7 +141,7 @@ public final class AutoCatch {
    * @return a supplier not declaring exception
    */
   public static ByteSupplier unDeclare(final ByteSupplierWithException supplier) {
-    return EXCEPTION_HANDLER.unDeclare(supplier);
+    return AUTO_CATCHER.unDeclare(supplier);
   }
 
   /**
@@ -150,7 +151,7 @@ public final class AutoCatch {
    * @return a supplier not declaring exception
    */
   public static CharSupplier unDeclare(final CharSupplierWithException supplier) {
-    return EXCEPTION_HANDLER.unDeclare(supplier);
+    return AUTO_CATCHER.unDeclare(supplier);
   }
 
   /**
@@ -160,7 +161,7 @@ public final class AutoCatch {
    * @return a supplier not declaring exception
    */
   public static DoubleSupplier unDeclare(final DoubleSupplierWithException supplier) {
-    return EXCEPTION_HANDLER.unDeclare(supplier);
+    return AUTO_CATCHER.unDeclare(supplier);
   }
 
   /**
@@ -170,7 +171,7 @@ public final class AutoCatch {
    * @return a supplier not declaring exception
    */
   public static IntSupplier unDeclare(final IntSupplierWithException supplier) {
-    return EXCEPTION_HANDLER.unDeclare(supplier);
+    return AUTO_CATCHER.unDeclare(supplier);
   }
 
   /**
@@ -181,7 +182,7 @@ public final class AutoCatch {
    * @return a predicate
    */
   public static <T> Predicate<T> unDeclare(final PredicateWithError<T> predicate) {
-    return t -> EXCEPTION_HANDLER.unDeclare(() -> predicate.test(t)).getAsBoolean();
+    return AUTO_CATCHER.unDeclare(predicate);
   }
 
   /**
@@ -192,7 +193,7 @@ public final class AutoCatch {
    * @return a predicate
    */
   public static <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> function) {
-    return t -> EXCEPTION_HANDLER.unDeclare(() -> function.apply(t)).get();
+    return AUTO_CATCHER.unDeclare(function);
   }
 
   /**
@@ -202,6 +203,6 @@ public final class AutoCatch {
    * @return a runnable
    */
   public static Runnable unDeclare(final RunnableWithException runnable) {
-    return EXCEPTION_HANDLER.unDeclare(runnable);
+    return AUTO_CATCHER.unDeclare(runnable);
   }
 }

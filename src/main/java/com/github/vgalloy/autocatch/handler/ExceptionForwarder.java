@@ -29,7 +29,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
-final class ExceptionForwarder implements ExceptionHandler {
+final class ExceptionForwarder implements AutoCatcher {
 
   @Override
   public BooleanSupplier unDeclare(final BooleanSupplierWithException supplier) {

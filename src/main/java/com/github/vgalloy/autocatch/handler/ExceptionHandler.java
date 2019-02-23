@@ -36,7 +36,7 @@ public interface ExceptionHandler {
    *
    * @return a instance of ExceptionHandler
    */
-  static ExceptionHandler wrapWithUndeclaredHandler() {
+  static AutoCatcher wrapWithUndeclaredHandler() {
     return new UndeclaredExceptionHandler();
   }
 
@@ -54,7 +54,7 @@ public interface ExceptionHandler {
    *
    * @return a forwarder exception handler
    */
-  static ExceptionHandler exceptionForwarder() {
+  static AutoCatcher exceptionForwarder() {
     return new ExceptionForwarder();
   }
 
