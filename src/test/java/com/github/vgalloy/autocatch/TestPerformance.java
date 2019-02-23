@@ -15,79 +15,127 @@
  */
 package com.github.vgalloy.autocatch;
 
+import com.github.vgalloy.autocatch.handler.ExceptionHandler;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 public class TestPerformance {
 
   /**
-   * Result "com.github.vgalloy.autocatch.TestPerformance.noExceptionWithTryCatch": 232864054.337
-   * ±(99.9%) 3956224.363 ops/s [Average] (min, avg, max) = (231608895.919, 232864054.337,
-   * 234307641.496), stdev = 1027418.904 CI (99.9%): [228907829.973, 236820278.700] (assumes normal
-   * distribution)
+   * Result "com.github.vgalloy.autocatch.TestPerformance.noExceptionWtihDirectUndeclaredExceptionHandlerInvocation":
+   *   63800207.537 ops/s
    *
-   * <p># Run complete. Total time: 00:08:14
    *
-   * <p>REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up
-   * on why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+   * # Run complete. Total time: 00:05:48
+   *
+   * REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+   * why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
    * experiments, perform baseline and negative tests that provide experimental control, make sure
-   * the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain
-   * experts. Do not assume the numbers tell you what you want them to tell.
+   * the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+   * Do not assume the numbers tell you what you want them to tell.
    *
-   * <p>Benchmark Mode Cnt Score Error Units
-   *
-   * <p>TestPerformance.exceptionWithAutoCatch ___________thrpt 5 137606.601 ± 9483.009 ops/s
-   * TestPerformance.exceptionWithAutoCatchOldGeneration _thrpt 5 138263.851 ± 3985.082 ops/s
-   * TestPerformance.exceptionWithNothing ________________thrpt 5 144224.108 ± 3954.272 ops/s
-   * TestPerformance.exceptionWithTryCatch _______________thrpt 5 68815.141 ± 861.399 ops/s
-   * TestPerformance.noExceptionWithAutoCatch ____________thrpt 5 224966585.577 ± 20264899.088 ops/s
-   * TestPerformance.noExceptionWithAutoCatchOldGeneration thrpt 5 95196421.562 ± 9492264.557 ops/s
-   * TestPerformance.noExceptionWithNothing ______________thrpt 5 226469413.017 ± 5743253.163 ops/s
-   * TestPerformance.noExceptionWithTryCatch _____________thrpt 5 232864054.337 ± 3956224.363 ops/s
+   * <pre>
+   * Benchmark                                               Mode  Cnt         Score   Error  Units
+   * TestPerformance.exceptionWithAutoCatch                 thrpt    2    130095.479          ops/s
+   * TestPerformance.exceptionWithAutoCatchOldGeneration    thrpt    2    128514.217          ops/s
+   * TestPerformance.exceptionWithNothing                   thrpt    2    135276.551          ops/s
+   * TestPerformance.exceptionWithTryCatch                  thrpt    2     65333.093          ops/s
+   * TestPerformance.noExceptionWithAutoCatch               thrpt    2  51080177.233          ops/s
+   * TestPerformance.noExceptionWithAutoCatchOldGeneration  thrpt    2  41779046.415          ops/s
+   * TestPerformance.noExceptionWithAutoCatchWithUnDeclare  thrpt    2  51476296.390          ops/s
+   * </pre>
    */
   public static void main(String[] args) throws Exception {
-    org.openjdk.jmh.Main.main(args);
+    Options opt =
+        new OptionsBuilder()
+            .include(TestPerformance.class.getSimpleName())
+            .warmupIterations(1)
+            .measurementIterations(2)
+            .forks(1)
+            .build();
+
+    new Runner(opt).run();
   }
 
   private static final Callable<Integer> CALLABLE_WITHOUT_EXCEPTION = () -> 1;
 
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
   @Benchmark
-  public void noExceptionWithAutoCatch() {
-    AutoCatch.autoCatch(CALLABLE_WITHOUT_EXCEPTION);
-  }
-
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
-  @Benchmark
-  public void noExceptionWithAutoCatchOldGeneration() {
-    final Object[] wrapper = new Object[1];
-    AutoCatch.autoCatch(
-        () -> {
-          wrapper[0] = CALLABLE_WITHOUT_EXCEPTION.call();
-        });
-    final Integer result = (Integer) wrapper[0];
-  }
-
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
-  @Benchmark
-  public void noExceptionWithNothing() throws Exception {
-    CALLABLE_WITHOUT_EXCEPTION.call();
-  }
-
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
-  @Benchmark
-  public void noExceptionWithTryCatch() {
+  public Integer noExceptionWithAutoCatch() {
     try {
-      CALLABLE_WITHOUT_EXCEPTION.call();
-    } catch (final Exception e) {
+      return AutoCatch.autoCatch(CALLABLE_WITHOUT_EXCEPTION);
+    } catch (final Exception ignored) {
+      return null;
+    }
+  }
 
+  @Benchmark
+  public Integer noExceptionWithAutoCatchWithUnDeclare() {
+    try {
+      return AutoCatch.unDeclare(CALLABLE_WITHOUT_EXCEPTION).get();
+    } catch (final Exception ignored) {
+      return null;
+    }
+  }
+
+  private static final ExceptionHandler FORWARD_HANDLER = ExceptionHandler.exceptionForwarder();
+
+  @Benchmark
+  public Integer noExceptionWtihDirectForwardExceptionHandlerInvocation() {
+    try {
+      return FORWARD_HANDLER.unDeclare(CALLABLE_WITHOUT_EXCEPTION).get();
+    } catch (final Exception ignored) {
+      return null;
+    }
+  }
+
+  private static final ExceptionHandler UNDECLARED_HANDLER = ExceptionHandler.toUndeclaredHandler();
+
+  @Benchmark
+  public Integer noExceptionWtihDirectUndeclaredExceptionHandlerInvocation() {
+    try {
+      return UNDECLARED_HANDLER.unDeclare(CALLABLE_WITHOUT_EXCEPTION).get();
+    } catch (final Exception ignored) {
+      return null;
+    }
+  }
+
+  @Benchmark
+  public Integer noExceptionWithAutoCatchOldGeneration() {
+    try {
+      final Object[] wrapper = new Object[1];
+      AutoCatch.autoCatch(
+          () -> {
+            wrapper[0] = CALLABLE_WITHOUT_EXCEPTION.call();
+          });
+      return (Integer) wrapper[0];
+    } catch (final Exception ignored) {
+      return null;
+    }
+  }
+
+  @Benchmark
+  public Integer noExceptionWithNothing() {
+    try {
+      return CALLABLE_WITHOUT_EXCEPTION.call();
+    } catch (final Exception ignored) {
+      return null;
+    }
+  }
+
+  @Benchmark
+  public Integer noExceptionWithTryCatch() {
+    try {
+      try {
+        return CALLABLE_WITHOUT_EXCEPTION.call();
+      } catch (final Exception e) {
+        throw new RuntimeException(e);
+      }
+    } catch (final Exception ignored) {
+      return null;
     }
   }
 
@@ -96,56 +144,48 @@ public class TestPerformance {
         throw new IOException("FAKE");
       };
 
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
   @Benchmark
-  public void exceptionWithAutoCatch() {
+  public Integer exceptionWithAutoCatch() {
     try {
-      AutoCatch.autoCatch(CALLABLE_WITH_EXCEPTION);
-    } catch (final Exception expected) {
-
+      return AutoCatch.autoCatch(CALLABLE_WITH_EXCEPTION);
+    } catch (final Exception ignored) {
+      return null;
     }
   }
 
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
   @Benchmark
-  public void exceptionWithAutoCatchOldGeneration() {
+  public Integer exceptionWithAutoCatchOldGeneration() {
     try {
       final Object[] wrapper = new Object[1];
       AutoCatch.autoCatch(
           () -> {
             wrapper[0] = CALLABLE_WITH_EXCEPTION.call();
           });
-      final Integer result = (Integer) wrapper[0];
-    } catch (final Exception expected) {
-
+      return (Integer) wrapper[0];
+    } catch (final Exception ignored) {
+      return null;
     }
   }
 
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
   @Benchmark
-  public void exceptionWithNothing() {
+  public Integer exceptionWithNothing() {
     try {
-      CALLABLE_WITH_EXCEPTION.call();
-    } catch (final Exception expected) {
-
+      return CALLABLE_WITH_EXCEPTION.call();
+    } catch (final Exception ignored) {
+      return null;
     }
   }
 
-  @Warmup(iterations = 1)
-  @Fork(value = 1)
   @Benchmark
-  public void exceptionWithTryCatch() {
+  public Integer exceptionWithTryCatch() {
     try {
       try {
-        CALLABLE_WITH_EXCEPTION.call();
-      } catch (final Exception first) {
-        throw new RuntimeException(first);
+        return CALLABLE_WITH_EXCEPTION.call();
+      } catch (final Exception e) {
+        throw new RuntimeException(e);
       }
-    } catch (final Exception expected) {
-
+    } catch (final Exception ignored) {
+      return null;
     }
   }
 }

@@ -46,7 +46,7 @@ public final class AutoCatch {
    * @return the primitive boolean provided by the supplier
    */
   public static boolean autoCatch(final BooleanSupplierWithException booleanSupplierWithException) {
-    return unDeclare(booleanSupplierWithException).getAsBoolean();
+    return EXCEPTION_HANDLER.unDeclare(booleanSupplierWithException).getAsBoolean();
   }
 
   /**
@@ -56,7 +56,7 @@ public final class AutoCatch {
    * @return the primitive byte provided by the supplier
    */
   public static byte autoCatch(final ByteSupplierWithException byteSupplierWithException) {
-    return unDeclare(byteSupplierWithException).getAsByte();
+    return EXCEPTION_HANDLER.unDeclare(byteSupplierWithException).getAsByte();
   }
 
   /**
@@ -66,7 +66,7 @@ public final class AutoCatch {
    * @return the primitive char provided by the supplier
    */
   public static char autoCatch(final CharSupplierWithException charSupplierWithException) {
-    return unDeclare(charSupplierWithException).getAsChar();
+    return EXCEPTION_HANDLER.unDeclare(charSupplierWithException).getAsChar();
   }
 
   /**
@@ -76,7 +76,7 @@ public final class AutoCatch {
    * @return the primitive double provided by the supplier
    */
   public static double autoCatch(final DoubleSupplierWithException doubleSupplierWithException) {
-    return unDeclare(doubleSupplierWithException).getAsDouble();
+    return EXCEPTION_HANDLER.unDeclare(doubleSupplierWithException).getAsDouble();
   }
 
   /**
@@ -86,7 +86,7 @@ public final class AutoCatch {
    * @return the primitive int provided by the supplier
    */
   public static int autoCatch(final IntSupplierWithException intSupplierWithException) {
-    return unDeclare(intSupplierWithException).getAsInt();
+    return EXCEPTION_HANDLER.unDeclare(intSupplierWithException).getAsInt();
   }
 
   /**
@@ -95,7 +95,7 @@ public final class AutoCatch {
    * @param runnableWithException the runnable
    */
   public static void autoCatch(final RunnableWithException runnableWithException) {
-    unDeclare(runnableWithException).run();
+    EXCEPTION_HANDLER.unDeclare(runnableWithException).run();
   }
 
   /**
@@ -106,7 +106,7 @@ public final class AutoCatch {
    * @return the value provided by the callable
    */
   public static <T> T autoCatch(final Callable<T> callable) {
-    return unDeclare(callable).get();
+    return EXCEPTION_HANDLER.unDeclare(callable).get();
   }
 
   /**

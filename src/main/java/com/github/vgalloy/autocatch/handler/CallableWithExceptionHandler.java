@@ -21,11 +21,11 @@ import java.util.concurrent.Callable;
 interface CallableWithExceptionHandler<T, E extends Exception> {
 
   /**
-   * Gets a result.
+   * Computes a result.
    *
    * @return a result
    */
-  T run() throws E;
+  T call() throws E;
 
   @SuppressWarnings("unchecked")
   static <T> CallableWithExceptionHandler<T, RuntimeException> handle(final Callable<T> callable) {

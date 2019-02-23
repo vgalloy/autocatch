@@ -33,6 +33,7 @@ public interface ExceptionHandler {
 
   /**
    * The exception will be wrapped into an {@link UndeclaredExceptionHandler}.
+   *
    * @return a instance of ExceptionHandler
    */
   static ExceptionHandler toUndeclaredHandler() {

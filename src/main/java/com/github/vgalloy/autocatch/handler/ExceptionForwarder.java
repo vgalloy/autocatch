@@ -63,6 +63,6 @@ final class ExceptionForwarder implements ExceptionHandler {
 
   @Override
   public <T> Supplier<T> unDeclare(Callable<T> callable) {
-    return CallableWithExceptionHandler.handle(callable)::run;
+    return CallableWithExceptionHandler.handle(callable)::call;
   }
 }
