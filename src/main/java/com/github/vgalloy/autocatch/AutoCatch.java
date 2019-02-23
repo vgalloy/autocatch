@@ -21,13 +21,17 @@ import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplier;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.DoubleSupplierWithException;
+import com.github.vgalloy.autocatch.function.FunctionWithError;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
+import com.github.vgalloy.autocatch.function.PredicateWithError;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import com.github.vgalloy.autocatch.handler.ExceptionHandler;
 import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
+import java.util.function.Function;
 import java.util.function.IntSupplier;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public final class AutoCatch {
@@ -110,6 +114,16 @@ public final class AutoCatch {
   }
 
   /**
+   * Convert the provided Callable into a supplier.
+   *
+   * @param callable the callable declaring an exception
+   * @return a supplier
+   */
+  public static <T> Supplier<T> unDeclare(final Callable<T> callable) {
+    return EXCEPTION_HANDLER.unDeclare(callable);
+  }
+
+  /**
    * Convert the provided supplier into another which is not declaring exception.
    *
    * @param supplier the supplier declaring an exception
@@ -160,6 +174,28 @@ public final class AutoCatch {
   }
 
   /**
+   * Convert the provided {@link PredicateWithError} declaring exception into a simple {@link
+   * Predicate}.
+   *
+   * @param predicate the predicate declaring an exception
+   * @return a predicate
+   */
+  public static <T> Predicate<T> unDeclare(final PredicateWithError<T> predicate) {
+    return t -> EXCEPTION_HANDLER.unDeclare(() -> predicate.test(t)).getAsBoolean();
+  }
+
+  /**
+   * Convert the provided {@link PredicateWithError} declaring exception into a simple {@link
+   * Predicate}.
+   *
+   * @param predicate the predicate declaring an exception
+   * @return a predicate
+   */
+  public static <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> predicate) {
+    return t -> EXCEPTION_HANDLER.unDeclare(() -> predicate.apply(t)).get();
+  }
+
+  /**
    * Convert the provided runnable into another which is not declaring exception.
    *
    * @param runnable the runnable declaring an exception
@@ -167,15 +203,5 @@ public final class AutoCatch {
    */
   public static Runnable unDeclare(final RunnableWithException runnable) {
     return EXCEPTION_HANDLER.unDeclare(runnable);
-  }
-
-  /**
-   * Convert the provided Callable into a supplier.
-   *
-   * @param callable the callable declaring an exception
-   * @return a supplier
-   */
-  public static <T> Supplier<T> unDeclare(final Callable<T> callable) {
-    return EXCEPTION_HANDLER.unDeclare(callable);
   }
 }

@@ -26,31 +26,25 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class TestPerformance {
 
   /**
-   * Result "com.github.vgalloy.autocatch.TestPerformance.noExceptionWtihDirectUndeclaredExceptionHandlerInvocation":
-   *   63800207.537 ops/s
-   *
-   *
-   * # Run complete. Total time: 00:05:48
-   *
-   * REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
-   * why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
-   * experiments, perform baseline and negative tests that provide experimental control, make sure
-   * the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
-   * Do not assume the numbers tell you what you want them to tell.
+   * Result
    *
    * <pre>
-   * Benchmark                                               Mode  Cnt         Score   Error  Units
-   * TestPerformance.exceptionWithAutoCatch                 thrpt    2    130095.479          ops/s
-   * TestPerformance.exceptionWithAutoCatchOldGeneration    thrpt    2    128514.217          ops/s
-   * TestPerformance.exceptionWithNothing                   thrpt    2    135276.551          ops/s
-   * TestPerformance.exceptionWithTryCatch                  thrpt    2     65333.093          ops/s
-   * TestPerformance.noExceptionWithAutoCatch               thrpt    2  51080177.233          ops/s
-   * TestPerformance.noExceptionWithAutoCatchOldGeneration  thrpt    2  41779046.415          ops/s
-   * TestPerformance.noExceptionWithAutoCatchWithUnDeclare  thrpt    2  51476296.390          ops/s
+   * Benchmark                                                                   Mode  Cnt         Score   Error  Units
+   * TestPerformance.exceptionWithAutoCatch                                     thrpt    2    130095.479          ops/s
+   * TestPerformance.exceptionWithAutoCatchOldGeneration                        thrpt    2    128514.217          ops/s
+   * TestPerformance.exceptionWithNothing                                       thrpt    2    135276.551          ops/s
+   * TestPerformance.exceptionWithTryCatch                                      thrpt    2     65333.093          ops/s
+   * TestPerformance.noExceptionWithAutoCatch                                   thrpt    2  51080177.233          ops/s
+   * TestPerformance.noExceptionWithAutoCatchOldGeneration                      thrpt    2  41779046.415          ops/s
+   * TestPerformance.noExceptionWithAutoCatchWithUnDeclare                      thrpt    2  51476296.390          ops/s
+   * TestPerformance.noExceptionWithNothing                                     thrpt    2  63340512.237          ops/s
+   * TestPerformance.noExceptionWithTryCatch                                    thrpt    2  64143181.047          ops/s
+   * TestPerformance.noExceptionWtihDirectForwardExceptionHandlerInvocation     thrpt    2  51414633.712          ops/s
+   * TestPerformance.noExceptionWtihDirectUndeclaredExceptionHandlerInvocation  thrpt    2  63800207.537          ops/s
    * </pre>
    */
   public static void main(String[] args) throws Exception {
-    Options opt =
+    final Options opt =
         new OptionsBuilder()
             .include(TestPerformance.class.getSimpleName())
             .warmupIterations(1)
@@ -92,7 +86,8 @@ public class TestPerformance {
     }
   }
 
-  private static final ExceptionHandler UNDECLARED_HANDLER = ExceptionHandler.toUndeclaredHandler();
+  private static final ExceptionHandler UNDECLARED_HANDLER =
+      ExceptionHandler.wrapWithUndeclaredHandler();
 
   @Benchmark
   public Integer noExceptionWtihDirectUndeclaredExceptionHandlerInvocation() {

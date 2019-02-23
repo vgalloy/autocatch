@@ -18,7 +18,9 @@ package com.github.vgalloy.autocatch;
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
+import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -119,5 +121,25 @@ class AutoCatchTest {
 
     // THEN
     Assertions.assertEquals(input, result);
+  }
+
+  @Test
+  void correctPredicateManagement() {
+    // GIVEN
+    final Optional<File> empty = Optional.empty();
+
+    // WHEN
+    final boolean result =
+        empty
+            .filter(AutoCatch.unDeclare(this::isAbsolute))
+            .map(AutoCatch.<File, Boolean>unDeclare(this::isAbsolute))
+            .orElse(false);
+
+    // THEN
+    Assertions.assertFalse(result);
+  }
+
+  private boolean isAbsolute(final File file) throws Exception {
+    return file.getCanonicalFile().isAbsolute();
   }
 }

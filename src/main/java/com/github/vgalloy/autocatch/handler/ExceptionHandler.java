@@ -36,7 +36,7 @@ public interface ExceptionHandler {
    *
    * @return a instance of ExceptionHandler
    */
-  static ExceptionHandler toUndeclaredHandler() {
+  static ExceptionHandler wrapWithUndeclaredHandler() {
     return new UndeclaredExceptionHandler();
   }
 
