@@ -17,8 +17,6 @@ package com.github.vgalloy.autocatch;
 
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
-import com.github.vgalloy.autocatch.function.IntSupplierWithException;
-import com.github.vgalloy.autocatch.function.RunnableWithException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -61,42 +59,6 @@ class AutoCatchTest {
 
     // THEN
     Assertions.assertEquals(message, exception.getMessage());
-  }
-
-  @Test
-  void throwException() {
-    // GIVEN
-    final String message = "FAKE";
-    final Callable<Integer> callable =
-        () -> {
-          throw new IOException(message);
-        };
-
-    // WHEN
-    final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(callable));
-
-    // THEN
-    Assertions.assertEquals("FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getClass());
-  }
-
-  @Test
-  void intSupplier() {
-    // GIVEN
-    final String message = "FAKE";
-    final IntSupplierWithException callable =
-        () -> {
-          throw new IOException(message);
-        };
-
-    // WHEN
-    final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(callable));
-
-    // THEN
-    Assertions.assertEquals("FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getClass());
   }
 
   @Test
@@ -151,22 +113,6 @@ class AutoCatchTest {
 
     // THEN
     Assertions.assertTrue(result);
-  }
-
-  @Test
-  void runnable() {
-    // GIVEN
-    final RunnableWithException runnableWithException = () -> {
-      throw new IOException("FAKE");
-    };
-
-    // WHEN
-    final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AutoCatch.autoCatch(runnableWithException));
-
-    // THEN
-    Assertions.assertEquals("FAKE", exception.getMessage());
-    Assertions.assertEquals(IOException.class, exception.getClass());
   }
 
   private boolean isAbsolute(final File file) throws Exception {
