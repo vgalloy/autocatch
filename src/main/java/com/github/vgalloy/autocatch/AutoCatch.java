@@ -36,7 +36,7 @@ import java.util.function.Supplier;
 
 public final class AutoCatch {
 
-  private static final AutoCatcher DEFAULT_CATCHER = AutoCatcher.exceptionForwarder();
+  private static final AutoCatcher DEFAULT_CATCHER = AutoCatcher.wrapWithUndeclaredHandler();
 
   /** Constructor. Private to avoid instantiation */
   private AutoCatch() {
