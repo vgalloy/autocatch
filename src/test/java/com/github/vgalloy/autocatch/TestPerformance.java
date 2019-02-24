@@ -15,7 +15,7 @@
  */
 package com.github.vgalloy.autocatch;
 
-import com.github.vgalloy.autocatch.handler.ExceptionHandler;
+import com.github.vgalloy.autocatch.handler.AutoCatcher;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -75,7 +75,7 @@ public class TestPerformance {
     }
   }
 
-  private static final ExceptionHandler FORWARD_HANDLER = ExceptionHandler.exceptionForwarder();
+  private static final AutoCatcher FORWARD_HANDLER = AutoCatcher.exceptionForwarder();
 
   @Benchmark
   public Integer noExceptionWithDirectForwardExceptionHandlerInvocation() {
@@ -86,8 +86,7 @@ public class TestPerformance {
     }
   }
 
-  private static final ExceptionHandler UNDECLARED_HANDLER =
-      ExceptionHandler.wrapWithUndeclaredHandler();
+  private static final AutoCatcher UNDECLARED_HANDLER = AutoCatcher.wrapWithUndeclaredHandler();
 
   @Benchmark
   public Integer noExceptionWithDirectUndeclaredExceptionHandlerInvocation() {

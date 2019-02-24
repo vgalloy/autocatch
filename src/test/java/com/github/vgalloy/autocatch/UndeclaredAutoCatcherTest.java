@@ -20,7 +20,6 @@ import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import com.github.vgalloy.autocatch.handler.AutoCatcher;
-import com.github.vgalloy.autocatch.handler.ExceptionHandler;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -36,7 +35,7 @@ import org.junit.jupiter.api.Test;
  */
 class UndeclaredAutoCatcherTest {
 
-  private static final AutoCatcher AUTO_CATCHER = ExceptionHandler.wrapWithUndeclaredHandler();
+  private static final AutoCatcher AUTO_CATCHER = AutoCatcher.wrapWithUndeclaredHandler();
 
   @Test
   void correctCase() {
@@ -62,7 +61,8 @@ class UndeclaredAutoCatcherTest {
 
     // WHEN
     final IllegalStateException exception =
-        Assertions.assertThrows(IllegalStateException.class, () -> AUTO_CATCHER.autoCatch(callable));
+        Assertions.assertThrows(
+            IllegalStateException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
     Assertions.assertEquals(message, exception.getMessage());
@@ -79,7 +79,8 @@ class UndeclaredAutoCatcherTest {
 
     // WHEN
     final UndeclaredThrowableException exception =
-        Assertions.assertThrows(UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(callable));
+        Assertions.assertThrows(
+            UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
     Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
@@ -97,7 +98,8 @@ class UndeclaredAutoCatcherTest {
 
     // WHEN
     final UndeclaredThrowableException exception =
-        Assertions.assertThrows(UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(callable));
+        Assertions.assertThrows(
+            UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
     Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
@@ -161,13 +163,16 @@ class UndeclaredAutoCatcherTest {
   @Test
   void runnable() {
     // GIVEN
-    final RunnableWithException runnableWithException = () -> {
-      throw new IOException("FAKE");
-    };
+    final RunnableWithException runnableWithException =
+        () -> {
+          throw new IOException("FAKE");
+        };
 
     // WHEN
     final UndeclaredThrowableException exception =
-        Assertions.assertThrows(UndeclaredThrowableException.class, () -> AUTO_CATCHER.autoCatch(runnableWithException));
+        Assertions.assertThrows(
+            UndeclaredThrowableException.class,
+            () -> AUTO_CATCHER.autoCatch(runnableWithException));
 
     // THEN
     Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());

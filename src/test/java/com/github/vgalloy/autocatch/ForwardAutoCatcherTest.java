@@ -21,7 +21,6 @@ import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import com.github.vgalloy.autocatch.handler.AutoCatcher;
-import com.github.vgalloy.autocatch.handler.ExceptionHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -36,7 +35,7 @@ import org.junit.jupiter.api.Test;
  */
 class ForwardAutoCatcherTest {
 
-  private static final AutoCatcher AUTO_CATCHER = ExceptionHandler.exceptionForwarder();
+  private static final AutoCatcher AUTO_CATCHER = AutoCatcher.exceptionForwarder();
 
   @Test
   void correctCase() {
@@ -62,7 +61,8 @@ class ForwardAutoCatcherTest {
 
     // WHEN
     final IllegalStateException exception =
-        Assertions.assertThrows(IllegalStateException.class, () -> AUTO_CATCHER.autoCatch(callable));
+        Assertions.assertThrows(
+            IllegalStateException.class, () -> AUTO_CATCHER.autoCatch(callable));
 
     // THEN
     Assertions.assertEquals(message, exception.getMessage());
@@ -173,13 +173,15 @@ class ForwardAutoCatcherTest {
   @Test
   void runnable() {
     // GIVEN
-    final RunnableWithException runnableWithException = () -> {
-      throw new IOException("FAKE");
-    };
+    final RunnableWithException runnableWithException =
+        () -> {
+          throw new IOException("FAKE");
+        };
 
     // WHEN
     final IOException exception =
-        Assertions.assertThrows(IOException.class, () -> AUTO_CATCHER.autoCatch(runnableWithException));
+        Assertions.assertThrows(
+            IOException.class, () -> AUTO_CATCHER.autoCatch(runnableWithException));
 
     // THEN
     Assertions.assertEquals("FAKE", exception.getMessage());

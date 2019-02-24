@@ -18,7 +18,6 @@ package com.github.vgalloy.autocatch;
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Assertions;
