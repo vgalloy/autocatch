@@ -7,7 +7,7 @@ Simplify *try catch* block
 <dependency>
     <groupId>com.github.vgalloy</groupId>
     <artifactId>auto-catch</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
