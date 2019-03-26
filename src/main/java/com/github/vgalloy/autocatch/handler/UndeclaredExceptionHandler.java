@@ -20,12 +20,14 @@ import com.github.vgalloy.autocatch.function.ByteSupplier;
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplier;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
+import com.github.vgalloy.autocatch.function.ConsumerWithException;
 import com.github.vgalloy.autocatch.function.DoubleSupplierWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
@@ -115,6 +117,19 @@ final class UndeclaredExceptionHandler implements AutoCatcher {
     return () -> {
       try {
         return callable.call();
+      } catch (final RuntimeException runtime) {
+        throw runtime;
+      } catch (final Exception exception) {
+        throw new UndeclaredThrowableException(exception);
+      }
+    };
+  }
+
+  @Override
+  public <T> Consumer<T> unDeclare(final ConsumerWithException<T> consumer) {
+    return (T t) -> {
+      try {
+        consumer.accept(t);
       } catch (final RuntimeException runtime) {
         throw runtime;
       } catch (final Exception exception) {

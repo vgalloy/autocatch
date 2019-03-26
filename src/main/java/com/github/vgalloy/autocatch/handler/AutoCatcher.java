@@ -5,6 +5,7 @@ import com.github.vgalloy.autocatch.function.ByteSupplier;
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplier;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
+import com.github.vgalloy.autocatch.function.ConsumerWithException;
 import com.github.vgalloy.autocatch.function.DoubleSupplierWithException;
 import com.github.vgalloy.autocatch.function.FunctionWithError;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
@@ -12,6 +13,7 @@ import com.github.vgalloy.autocatch.function.PredicateWithError;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import java.util.function.IntSupplier;
@@ -102,6 +104,15 @@ public interface AutoCatcher {
    * @return a supplier
    */
   <T> Supplier<T> unDeclare(final Callable<T> callable);
+
+  /**
+   * Convert the provided consumer into another which is not declaring exception.
+   *
+   * @param consumer the consumer declaring an exception
+   * @return a consumer
+   */
+  <T> Consumer<T> unDeclare(final ConsumerWithException<T> consumer);
+
   /**
    * Execute the provided callable without declaring the exception.
    *
@@ -171,6 +182,7 @@ public interface AutoCatcher {
   default <T> T autoCatch(final Callable<T> callable) {
     return this.unDeclare(callable).get();
   }
+
   /**
    * Convert the provided {@link PredicateWithError} declaring exception into a simple {@link
    * Predicate}.
