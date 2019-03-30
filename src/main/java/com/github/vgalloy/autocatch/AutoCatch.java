@@ -117,6 +117,7 @@ public final class AutoCatch {
    * Convert the provided Callable into a supplier.
    *
    * @param callable the callable declaring an exception
+   * @param <T> the return type of the supplier
    * @return a supplier
    */
   public static <T> Supplier<T> unDeclare(final Callable<T> callable) {
@@ -178,6 +179,7 @@ public final class AutoCatch {
    * Predicate}.
    *
    * @param predicate the predicate declaring an exception
+   * @param <T> the input type of the predicate
    * @return a predicate
    */
   public static <T> Predicate<T> unDeclare(final PredicateWithError<T> predicate) {
@@ -189,6 +191,8 @@ public final class AutoCatch {
    * Function}.
    *
    * @param function the function declaring an exception
+   * @param <T> the input type of the function
+   * @param <R> the result type of the function
    * @return a predicate
    */
   public static <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> function) {

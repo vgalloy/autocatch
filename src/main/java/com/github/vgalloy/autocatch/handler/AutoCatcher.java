@@ -40,8 +40,8 @@ public interface AutoCatcher {
    * }
    * }</pre>
    *
-   * calling throwIOException will throw an exception but the method throwIOException don't need to
-   * declare it
+   * <p>calling throwIOException will throw an exception but the method throwIOException don't need
+   * to declare it
    *
    * @return a forwarder exception handler
    */
@@ -101,6 +101,7 @@ public interface AutoCatcher {
    * Convert the provided Callable into a supplier.
    *
    * @param callable the callable declaring an exception
+   * @param <T> the result type
    * @return a supplier
    */
   <T> Supplier<T> unDeclare(final Callable<T> callable);
@@ -109,6 +110,7 @@ public interface AutoCatcher {
    * Convert the provided consumer into another which is not declaring exception.
    *
    * @param consumer the consumer declaring an exception
+   * @param <T> the input type of the consumer
    * @return a consumer
    */
   <T> Consumer<T> unDeclare(final ConsumerWithException<T> consumer);
@@ -188,6 +190,7 @@ public interface AutoCatcher {
    * Predicate}.
    *
    * @param predicate the predicate declaring an exception
+   * @param <T> the input type of the predicate
    * @return a predicate
    */
   default <T> Predicate<T> unDeclare(final PredicateWithError<T> predicate) {
@@ -199,6 +202,8 @@ public interface AutoCatcher {
    * Function}.
    *
    * @param function the function declaring an exception
+   * @param <T> the input type of the function
+   * @param <R> the result type of the function
    * @return a predicate
    */
   default <T, R> Function<T, R> unDeclare(final FunctionWithError<T, R> function) {
