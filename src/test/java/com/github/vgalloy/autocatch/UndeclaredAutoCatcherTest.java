@@ -17,6 +17,7 @@ package com.github.vgalloy.autocatch;
 
 import com.github.vgalloy.autocatch.function.ByteSupplierWithException;
 import com.github.vgalloy.autocatch.function.CharSupplierWithException;
+import com.github.vgalloy.autocatch.function.ConsumerWithException;
 import com.github.vgalloy.autocatch.function.IntSupplierWithException;
 import com.github.vgalloy.autocatch.function.RunnableWithException;
 import com.github.vgalloy.autocatch.handler.AutoCatcher;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Optional;
 import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -173,6 +175,24 @@ class UndeclaredAutoCatcherTest {
         Assertions.assertThrows(
             UndeclaredThrowableException.class,
             () -> AUTO_CATCHER.autoCatch(runnableWithException));
+
+    // THEN
+    Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
+    Assertions.assertEquals(IOException.class, exception.getUndeclaredThrowable().getClass());
+  }
+
+  @Test
+  void consumer() {
+    // GIVEN
+    final ConsumerWithException<Integer> consumerWithException =
+        a -> {
+          throw new IOException("FAKE");
+        };
+    final Consumer<Integer> consumer = AUTO_CATCHER.unDeclare(consumerWithException);
+
+    // WHEN
+    final UndeclaredThrowableException exception =
+        Assertions.assertThrows(UndeclaredThrowableException.class, () -> consumer.accept(1));
 
     // THEN
     Assertions.assertEquals("FAKE", exception.getUndeclaredThrowable().getMessage());
